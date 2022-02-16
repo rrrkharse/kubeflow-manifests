@@ -8,7 +8,6 @@ spec:
     spec:
       containers:
         - name: secrets
-          image: public.ecr.aws/xray/aws-xray-daemon:latest
           volumeMounts:
           - name: rds-secret # rename secret
             mountPath: "/mnt/rds-store"

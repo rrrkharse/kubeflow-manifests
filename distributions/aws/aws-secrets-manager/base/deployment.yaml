@@ -11,8 +11,6 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: kubeflow-secrets-pod
-      # annotations:
-      #   sidecar.istio.io/inject: "false"
     spec:
       containers:
         - name: secrets
