@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo A comment on PR $NUMBER
+          echo Event body $GITHUB_CONTEXT
         env:
           NUMBER: ${{ github.event.issue.number }}
+          GITHUB_CONTEXT: ${{ toJson(github) }}
