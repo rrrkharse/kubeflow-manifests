@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo Event body $GITHUB_CONTEXT; curl -v -X POST https://xglct405dg.execute-api.us-west-1.amazonaws.com/test/run-codebuild -d '{"pr_id": $NUMBER}'
+          echo Event body $GITHUB_CONTEXT; curl -v -X POST https://xglct405dg.execute-api.us-west-1.amazonaws.com/test/run-codebuild -d '{"pr_id": '"$NUMBER"'}'
         env:
           NUMBER: ${{ github.event.issue.number }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
