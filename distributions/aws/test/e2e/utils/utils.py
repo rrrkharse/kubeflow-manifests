@@ -22,10 +22,9 @@ def safe_open(filepath, mode="r"):
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     return open(filepath, mode)
 
-
-def unmarshal_yaml(yaml_file, replacements={}):
+def replace_file_values(filepath, replacements={}, placeholders_only=True):
     """
-    Unmarshals yaml into a python object.
+    Replaces values in a file in memory.
 
     `replacements` allow substituting values in the yaml file.
 
@@ -44,11 +43,37 @@ def unmarshal_yaml(yaml_file, replacements={}):
             - namespace: kubeflow
     """
 
-    with open(yaml_file) as file:
+    with open(filepath) as file:
         contents = file.read()
 
     for r_key, r_value in replacements.items():
-        contents = contents.replace(f"${{{r_key}}}", r_value)
+        if placeholders_only:
+            contents = contents.replace(f"${{{r_key}}}", r_value)
+        else:
+            contents = contents.replace(r_key, r_value)
+
+
+    return contents
+
+def replace_file_values_and_save_file(filepath, replacements={}, placeholders_only=True):
+    """
+    Replaces values in a file via replace_file_values() and saves the
+    file with the replaced values.
+    """
+
+    contents = replace_file_values(filepath, replacements, placeholders_only)
+
+    with open(filepath, 'w') as file:
+        file.write(contents)
+
+
+def unmarshal_yaml(yaml_file, replacements={}, placeholders_only=True):
+    """
+    Unmarshals yaml into a python object and replaces values via
+    replace_file_values()
+    """
+
+    contents = replace_file_values(yaml_file, replacements, placeholders_only)
 
     return yaml.safe_load(contents)
 
