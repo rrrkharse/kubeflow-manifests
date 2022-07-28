@@ -1,7 +1,7 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/awslabs/kubeflow-manifests/issues)
 ![current development version](https://img.shields.io/badge/Kubeflow-v1.5.1-green.svg?style=flat)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
-# Helm Installation for Kubeflow on AWS
+# Helm Installation for Kubeflow on AWS (Vanilla)
 
 ## Overview
 [Helm][] is the package manager for Kubernetes. In the following instructions, users can use **Helm** to install and manage **Kubeflow** instead of [Kustomize][].

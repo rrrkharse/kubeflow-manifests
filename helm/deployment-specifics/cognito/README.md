@@ -1,7 +1,7 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/awslabs/kubeflow-manifests/issues)
 ![current development version](https://img.shields.io/badge/Kubeflow-v1.5.1-green.svg?style=flat)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
-# Helm Installation for Kubeflow on AWS
+# Helm Installation for Kubeflow on AWS (Cognito)
 
 ## Overview
 [Helm][] is the package manager for Kubernetes. In the following instructions, users can use **Helm** to install and manage **Kubeflow** instead of [Kustomize][].
@@ -106,7 +106,7 @@ helm install kubeflow-pipelines helm/apps/kubeflow-pipelines
 6. Based on the generated `tests/e2e/utils/cognito_bootstrap/config.yaml/config.yaml`, fill in parameters for **values.yaml** in the following charts: \
         -`helm/deployment-specifics/cognito/alb-controller/values.yaml` \
         -`helm/deployment-specifics/cognito/aws-authservice/values.yaml` \
-        -`helm/deployment-specifics/cognito/ingress/values.yaml` \
+        -`helm/deployment-specifics/cognito/ingress/values.yaml` 
 
 7. Install **Ingress**, **ALB-Controller**, and **Authservice** for Cognito configuration:
 ```bash
@@ -146,7 +146,7 @@ kubeflow:
 
 -Create a user in Cognito user pool \
 -Create a profile for the user from the user pool \
--Connect to the central dashboard \
+-Connect to the central dashboard 
 
 
 ## Connect to your Kubeflow cluster 
