@@ -166,6 +166,6 @@ This project is [licensed](LICENSE) under the Apache-2.0 License.
 [Helm]: https://helm.sh/
 [Kustomize]: https://kustomize.io/
 [Install Helm]: https://helm.sh/docs/intro/install/
-[Prerequisite]: https://awslabs.github.io/kubeflow-manifests/docs/deployment/prerequisites/
+[Installation Prerequisite]: https://awslabs.github.io/kubeflow-manifests/docs/deployment/prerequisites/
 [cert-manager Verification]: https://cert-manager.io/docs/installation/verify/#check-cert-manager-api
 [cmctl]: https://cert-manager.io/docs/usage/cmctl/#installation
