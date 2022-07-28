@@ -7,7 +7,7 @@
 [Helm][] is the package manager for Kubernetes. In the following instructions, users can use **Helm** to install and manage **Kubeflow** instead of [Kustomize][].
 
 ## Install Helm
-[Install Helm][] to you computer with one of the options you preferred. Check your helm version running:
+[Install Helm][] to your computer with one of the options you preferred. Check your helm version running:
 ```bash
 helm version
 ```

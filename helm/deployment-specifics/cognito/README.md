@@ -103,10 +103,10 @@ helm install kserve helm/apps/kserve;
 helm install kubeflow-pipelines helm/apps/kubeflow-pipelines
 ```
 
-6. Based on the generated `tests/e2e/utils/cognito_bootstrap/config.yaml/config.yaml`, fill in parameters for **values.yaml** in the following charts:
-        -`helm/deployment-specifics/cognito/alb-controller/values.yaml`
-        -`helm/deployment-specifics/cognito/aws-authservice/values.yaml`
-        -`helm/deployment-specifics/cognito/ingress/values.yaml`
+6. Based on the generated `tests/e2e/utils/cognito_bootstrap/config.yaml/config.yaml`, fill in parameters for **values.yaml** in the following charts: \
+        -`helm/deployment-specifics/cognito/alb-controller/values.yaml` \
+        -`helm/deployment-specifics/cognito/aws-authservice/values.yaml` \
+        -`helm/deployment-specifics/cognito/ingress/values.yaml` \
 
 7. Install **Ingress**, **ALB-Controller**, and **Authservice** for Cognito configuration:
 ```bash
@@ -144,9 +144,9 @@ kubeflow:
 
 11. Follow the rest of the cognito guide from [section 6.0(Connecting to central dashboard)][] to:
 
--Create a user in Cognito user pool
--Create a profile for the user from the user pool
--Connect to the central dashboard
+-Create a user in Cognito user pool \
+-Create a profile for the user from the user pool \
+-Connect to the central dashboard \
 
 
 ## Connect to your Kubeflow cluster 
