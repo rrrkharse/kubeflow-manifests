@@ -131,17 +131,11 @@ helm install kserve helm/apps/kserve;
 You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.env`
 
 7. Configure for RDS and S3 to persist data: \
-        - Install **Kubeflow-pipelines** \
+        - Install **Kubeflow-pipelines**, **Katib** and **AWS-Secrets-Manager** \
         ```bash
         helm install kubeflow-pipelines helm/deployment-specifics/rds-s3/rds-and-s3/kubeflow-pipelines;
-        ``` \
-        -Install **Katib** \
-        ```bash
         helm install katib helm/deployment-specifics/rds-s3/rds-and-s3/katib;
-        ``` \
-        -Install **AWS-Secrets-Manager** \
-        ```bash
-         helm install aws-secrets-manager helm/deployment-specifics/rds-s3/rds-and-s3/aws-secrets-manager;
+        helm install aws-secrets-manager helm/deployment-specifics/rds-s3/rds-and-s3/aws-secrets-manager;
         ```
 
 ## [RDS Only] Deploy only with RDS
@@ -151,17 +145,11 @@ You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.e
 You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.env`
 
 7. Configure for RDS to persist data: \
-        - Install **Kubeflow-pipelines** \
+        - Install **Kubeflow-pipelines**, **Katib** and **AWS-Secrets-Manager** \
         ```bash
         helm install kubeflow-pipelines helm/deployment-specifics/rds-s3/rds-only/kubeflow-pipelines;
-        ```
-        -Install **Katib** \
-        ```bash
         helm install katib helm/deployment-specifics/rds-s3/rds-only/katib;
-        ```
-        -Install **AWS-Secrets-Manager** \
-        ```bash
-         helm install aws-secrets-manager helm/deployment-specifics/rds-s3/rds-only/aws-secrets-manager;
+        helm install aws-secrets-manager helm/deployment-specifics/rds-s3/rds-only/aws-secrets-manager;
         ```
 
 ## [S3 Only] Deploy only with RDS
@@ -174,16 +162,9 @@ You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.e
         - Install **Kubeflow-pipelines** \
         ```bash
         helm install kubeflow-pipelines helm/deployment-specifics/rds-s3/s3-only/kubeflow-pipelines;
-        ```
-        -Install **Katib** \
-        ```bash
         helm install katib helm/deployment-specifics/rds-s3/s3-only/katib;
+        helm install aws-secrets-manager helm/deployment-specifics/rds-s3/s3-only/aws-secrets-manager;
         ```
-        -Install **AWS-Secrets-Manager**
-        ```bash
-         helm install aws-secrets-manager helm/deployment-specifics/rds-s3/s3-only/aws-secrets-manager;
-        ```
-
 
 
 
