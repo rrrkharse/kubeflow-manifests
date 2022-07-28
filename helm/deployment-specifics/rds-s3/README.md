@@ -110,7 +110,7 @@ helm install knative-eventing helm/apps/knative-eventing;
 
 5. Install the rest of Kubeflow Components:
 ```bash
-helm install dex helm/apps/dex;
+
 helm install oidc-authservice helm/apps/oidc-authservice;
 helm install aws-telemetry helm/apps/aws-telemetry;
 helm install central-dashboard helm/apps/central-dashboard;
