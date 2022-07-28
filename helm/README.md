@@ -33,7 +33,7 @@ helm install cert-manager helm/common/cert-manager \
 --set installCRDs=true
 ```
 
-Install [cmctl][] and verify the installation following [cert-manager Verification] []
+Install [cmctl][] and verify the installation following [cert-manager Verification][]
 
 Check if cmctl is ready:
 ```bash
