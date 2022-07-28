@@ -11,7 +11,7 @@ from e2e.utils.aws.acm import AcmCertificate
 from e2e.utils.aws.elbv2 import ElasticLoadBalancingV2
 from e2e.utils.aws.iam import IAMPolicy
 from e2e.utils.aws.route53 import Route53HostedZone
-from e2e.fixtures.kustomize import apply_kustomize
+from e2e.fixtures.installation import apply_kustomize
 from e2e.utils.utils import (
     kubectl_apply_kustomize,
     load_json_file,
