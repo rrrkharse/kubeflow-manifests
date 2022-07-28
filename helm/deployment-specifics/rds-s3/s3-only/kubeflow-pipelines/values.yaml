@@ -1,0 +1,4 @@
+s3:
+  bucketName: #s3-bucket-1
+  minioServiceRegion: #us-west-2
+  minioServiceHost: #s3.amazonaws.com 
