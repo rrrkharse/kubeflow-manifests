@@ -3,24 +3,33 @@ data:
   ConMaxLifeTime: 120s
   appName: pipeline
   appVersion: 1.8.2
-  autoUpdatePipelineDefaultVersion: "true"
-  bucketName: mlpipeline
+  autoUpdatePipelineDefaultVersion: 'true'
+  bucketName: jsitu-s3-bucket-6
   cacheDb: cachedb
   cacheImage: gcr.io/google-containers/busybox
-  cacheNodeRestrictions: "false"
+  cacheNodeRestrictions: 'false'
   cronScheduleTimezone: UTC
-  dbHost: {{ .Values.rds.dbHost }}
-  dbPort: "3306"
-  defaultPipelineRoot: ""
-  mlmdDb: {{ .Values.rds.mlmdDb }}
+  dbHost: jsitu-kubeflow-db.cuphhlqjam7v.ca-central-1.rds.amazonaws.com
+  dbPort: '3306'
+  defaultPipelineRoot: ''
+  minioServiceHost: s3.amazonaws.com
+  minioServiceRegion: ca-central-1
+  mlmdDb: metadb
   pipelineDb: mlpipeline
-  warning: |
-    1. Do not use kubectl to edit this configmap, because some values are used
+  warning: '1. Do not use kubectl to edit this configmap, because some values are
+    used
+
     during kustomize build. Instead, change the configmap and apply the entire
+
     kustomize manifests again.
+
     2. After updating the configmap, some deployments may need to be restarted
+
     until the changes take effect. A quick way to restart all deployments in a
+
     namespace: `kubectl rollout restart deployment -n <your-namespace>`.
+
+    '
 kind: ConfigMap
 metadata:
   annotations: {}
