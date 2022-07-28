@@ -1,7 +1,7 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/awslabs/kubeflow-manifests/issues)
 ![current development version](https://img.shields.io/badge/Kubeflow-v1.5.1-green.svg?style=flat)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
-# Helm Installation for Kubeflow on AWS
+# Helm Installation for Kubeflow on AWS (RDS/S3)
 
 ## Overview
 [Helm][] is the package manager for Kubernetes. In the following instructions, users can use **Helm** to install and manage **Kubeflow** instead of [Kustomize][].
@@ -14,7 +14,7 @@ helm version
 Make sure you are using **helm v3.7+**.
 
 ## Prerequisites
-Install required dependencies and create an EKS cluster following the [Installation Prerequisite][] guideline. 
+Install required dependencies and create an EKS cluster following the [Prerequisite][] guideline. 
 
 ## RDS and S3 Installation
 This guide describes how to deploy Kubeflow on AWS EKS using **RDS/S3** to persist KFP data. For advantage of using **RDS/S3**, refer to [existing installation guideline][] with kustomize.
@@ -77,8 +77,12 @@ export MINIO_AWS_SECRET_ACCESS_KEY=
 export RDS_SECRET_NAME=
 export S3_SECRET_NAME=
 export DB_INSTANCE_NAME=
+export DB_SUBNET_GROUP_NAME=
 ```
 
+```bash
+cd tests/e2e
+```
 
 ```bash
 PYTHONPATH=.. python3 utils/rds-s3/auto-rds-s3-setup.py \
@@ -86,7 +90,8 @@ PYTHONPATH=.. python3 utils/rds-s3/auto-rds-s3-setup.py \
 --bucket $S3_BUCKET --rds_secret_name $RDS_SECRET_NAME \
 --s3_aws_access_key_id $MINIO_AWS_ACCESS_KEY_ID \
 --s3_aws_secret_access_key $MINIO_AWS_SECRET_ACCESS_KEY \
---db_instance_name $DB_INSTANCE_NAME --s3_secret_name $S3_SECRET_NAME 
+--db_instance_name $DB_INSTANCE_NAME --s3_secret_name $S3_SECRET_NAME  \
+--db_subnet_group_name $DB_SUBNET_GROUP_NAME
 ```
 
 
@@ -120,57 +125,57 @@ helm install kserve helm/apps/kserve;
 ```
 
 ## [RDS and S3] Deploy both RDS and S3
-6. Filled in parameters for **values.yaml** in the following charts:
+6. Filled in parameters for **values.yaml** in the following charts: \
         -`helm/deployment-specifics/rds-s3/rds-and-s3/aws-secrets-manager/values.yaml` \
         -`helm/deployment-specifics/rds-s3/rds-and-s3/kubeflow-pipelines/values.yaml` \
 You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.env`
 
-7. Configure for RDS and S3 to persist data
-        - Install **Kubeflow-pipelines**
+7. Configure for RDS and S3 to persist data: \
+        - Install **Kubeflow-pipelines** \
         ```bash
         helm install kubeflow-pipelines helm/deployment-specifics/rds-s3/rds-and-s3/kubeflow-pipelines;
-        ```
-        -Install **Katib**
+        ``` \
+        -Install **Katib** \
         ```bash
         helm install katib helm/deployment-specifics/rds-s3/rds-and-s3/katib;
-        ```
-        -Install **AWS-Secrets-Manager**
+        ``` \
+        -Install **AWS-Secrets-Manager** \
         ```bash
          helm install aws-secrets-manager helm/deployment-specifics/rds-s3/rds-and-s3/aws-secrets-manager;
         ```
 
 ## [RDS Only] Deploy only with RDS
-6. Filled in parameters for **values.yaml** in the following charts:
+6. Filled in parameters for **values.yaml** in the following charts: \
         -`helm/deployment-specifics/rds-s3/rds-only/aws-secrets-manager/values.yaml` \
         -`helm/deployment-specifics/rds-s3/rds-only/kubeflow-pipelines/values.yaml` \
 You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.env`
 
-7. Configure for RDS to persist data
-        - Install **Kubeflow-pipelines**
+7. Configure for RDS to persist data: \
+        - Install **Kubeflow-pipelines** \
         ```bash
         helm install kubeflow-pipelines helm/deployment-specifics/rds-s3/rds-only/kubeflow-pipelines;
         ```
-        -Install **Katib**
+        -Install **Katib** \
         ```bash
         helm install katib helm/deployment-specifics/rds-s3/rds-only/katib;
         ```
-        -Install **AWS-Secrets-Manager**
+        -Install **AWS-Secrets-Manager** \
         ```bash
          helm install aws-secrets-manager helm/deployment-specifics/rds-s3/rds-only/aws-secrets-manager;
         ```
 
 ## [S3 Only] Deploy only with RDS
-6. Filled in parameters for **values.yaml** in the following charts:
+6. Filled in parameters for **values.yaml** in the following charts: \
         -`helm/deployment-specifics/rds-s3/s3-only/aws-secrets-manager/values.yaml` \
         -`helm/deployment-specifics/rds-s3/s3-only/kubeflow-pipelines/values.yaml` \
 You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.env`
 
-7. Configure for RDS to persist data
-        - Install **Kubeflow-pipelines**
+7. Configure for RDS to persist data: \
+        - Install **Kubeflow-pipelines** \
         ```bash
         helm install kubeflow-pipelines helm/deployment-specifics/rds-s3/s3-only/kubeflow-pipelines;
         ```
-        -Install **Katib**
+        -Install **Katib** \
         ```bash
         helm install katib helm/deployment-specifics/rds-s3/s3-only/katib;
         ```
@@ -182,7 +187,7 @@ You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.e
 
 
 
-8. Install **Admission Webhook** , **Profiles and Kubeflow Access-Management** and **User Namespace**
+8. Install **Admission Webhook** , **Profiles and Kubeflow Access-Management** and **User Namespace** \
 ```bash
 helm install admission-webhook helm/apps/admission-webhook;
 helm install profiles-and-kfam helm/apps/profiles-and-kfam;
