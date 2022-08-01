@@ -70,10 +70,10 @@ def get_secretkey(request):
         pytest.fail("--secretkey is required")
     return secret_key
 
-def get_installationOption(request):
+def get_installation_option(request):
     installation_option = request.config.getoption("--installation")
     if not installation_option:
-        pytest.fail("--installation method is required")
+        installation_option = "kustomize"
     return installation_option
 
 @pytest.fixture(scope="class")

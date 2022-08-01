@@ -107,9 +107,6 @@ def createHelmChart(helm_chart_path: str, helm_chart_name: str):
     valueFile = f"{helm_chart_path}/{helm_chart_name}/values.yaml"
     emptyYAMLFile = None
     write_yaml_file(yaml_content=emptyYAMLFile, file_path=valueFile)
-    
-  
-
 
 def moveYAMLFilesToHelmTemplate(curdir: str, helm_chart_path: str, helm_chart_name: str):
     outputPath = f"{curdir}/output"

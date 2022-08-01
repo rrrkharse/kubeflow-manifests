@@ -73,8 +73,7 @@ COMPONENT_HELM_MANIFEST_PATH = [["../../deployments/vanilla/helm/knative-eventin
 
 @pytest.fixture(scope="class")
 def installation_path(installation_option):
-    print("This is Option:")
-    print(installation_option)
+    print(f"Installation Option: {installation_option}")
     if (installation_option == 'kustomize'):
         return GENERIC_KUSTOMIZE_MANIFEST_PATH
     if (installation_option == 'helm'):
