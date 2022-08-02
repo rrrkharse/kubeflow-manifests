@@ -1,5 +1,5 @@
 rds:
-  secretName: jsitu-rds-secret-6
+  secretName: #rds-secret
 
 s3:
-  secretName: jsitu-s3-secret-6
+  secretName: #s3-secret

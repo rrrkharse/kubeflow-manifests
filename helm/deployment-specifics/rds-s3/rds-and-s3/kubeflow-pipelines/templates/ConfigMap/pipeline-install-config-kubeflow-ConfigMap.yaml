@@ -4,17 +4,17 @@ data:
   appName: pipeline
   appVersion: 1.8.2
   autoUpdatePipelineDefaultVersion: 'true'
-  bucketName: jsitu-s3-bucket-6
+  bucketName: {{ .Values.s3.bucketName }}
   cacheDb: cachedb
   cacheImage: gcr.io/google-containers/busybox
   cacheNodeRestrictions: 'false'
   cronScheduleTimezone: UTC
-  dbHost: jsitu-kubeflow-db.cuphhlqjam7v.ca-central-1.rds.amazonaws.com
+  dbHost: {{ .Values.rds.dbHost }}
   dbPort: '3306'
   defaultPipelineRoot: ''
-  minioServiceHost: s3.amazonaws.com
-  minioServiceRegion: ca-central-1
-  mlmdDb: metadb
+  minioServiceHost: {{ .Values.s3.minioServiceHost }}
+  minioServiceRegion: {{ .Values.s3.minioServiceRegion }}
+  mlmdDb: {{ .Values.rds.mlmdDb }}
   pipelineDb: mlpipeline
   warning: '1. Do not use kubectl to edit this configmap, because some values are
     used

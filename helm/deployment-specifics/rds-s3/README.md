@@ -110,7 +110,7 @@ helm install knative-eventing helm/apps/knative-eventing;
 
 5. Install the rest of Kubeflow Components:
 ```bash
-
+helm install dex helm/apps/dex;
 helm install oidc-authservice helm/apps/oidc-authservice;
 helm install aws-telemetry helm/apps/aws-telemetry;
 helm install central-dashboard helm/apps/central-dashboard;
@@ -165,7 +165,7 @@ You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.e
 
 ```bash
 helm install kubeflow-pipelines helm/deployment-specifics/rds-s3/s3-only/kubeflow-pipelines;
-helm install katib helm/apps/katib;;
+helm install katib helm/apps/katib;
 helm install aws-secrets-manager helm/deployment-specifics/rds-s3/s3-only/aws-secrets-manager;
 ```
 
@@ -182,42 +182,119 @@ helm install user-namespace helm/apps/user-namespace;
 ## Verify Installation
 
 9. Your should see helm releases are in deployed status:
-```bash
-$ helm list --namespace cert-manager
-NAME        	NAMESPACE   	REVISION	UPDATED                            	STATUS  	CHART              	APP VERSION
-cert-manager	cert-manager	1       	2022-07-28 12:05:28.69295 -0700 PDT	deployed	cert-manager-v1.5.0	v1.5.0     
-```
 
 ```bash
-$ helm list
-NAME                    	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART                         	APP VERSION
-admission-webhook       	default  	1       	2022-07-28 12:57:27.613949 -0700 PDT	deployed	admission-webhook-0.1.0       	1.16.0     
-aws-secrets-manager     	default  	1       	2022-07-28 12:55:30.291808 -0700 PDT	deployed	aws-secrets-manager-0.1.0     	1.16.0     
-aws-telemetry           	default  	1       	2022-07-28 12:39:24.261685 -0700 PDT	deployed	aws-telemetry-0.1.0           	1.16.0     
-central-dashboard       	default  	1       	2022-07-28 12:39:41.64472 -0700 PDT 	deployed	central-dashboard-0.1.0       	1.16.0     
-cluster-local-gateway   	default  	1       	2022-07-28 12:31:55.501454 -0700 PDT	deployed	cluster-local-gateway-0.1.0   	1.16.0     
-dex                     	default  	1       	2022-07-28 12:38:35.15731 -0700 PDT 	deployed	dex-0.1.0                     	1.16.0     
-istio-1-11              	default  	1       	2022-07-28 12:07:47.921271 -0700 PDT	deployed	istio-1-11-0.1.0              	1.16.0     
-jupyter-web-app         	default  	1       	2022-07-28 12:42:23.163274 -0700 PDT	deployed	jupyter-web-app-0.1.0         	1.16.0     
-katib                   	default  	1       	2022-07-28 12:54:47.810424 -0700 PDT	deployed	katib-0.1.0                   	1.16.0     
-knative-eventing        	default  	1       	2022-07-28 12:34:36.922185 -0700 PDT	deployed	knative-eventing-0.1.0        	1.16.0     
-knative-serving         	default  	1       	2022-07-28 12:32:33.226445 -0700 PDT	deployed	knative-serving-0.1.0         	1.16.0     
-kserve                  	default  	1       	2022-07-28 12:44:00.152331 -0700 PDT	deployed	kserve-0.1.0                  	1.16.0     
-kubeflow-issuer         	default  	1       	2022-07-28 12:31:22.068229 -0700 PDT	deployed	kubeflow-issuer-0.1.0         	1.16.0     
-kubeflow-istio-resources	default  	1       	2022-07-28 12:31:40.286801 -0700 PDT	deployed	kubeflow-istio-resources-0.1.0	1.16.0     
-kubeflow-namespace      	default  	1       	2022-07-28 12:09:07.416695 -0700 PDT	deployed	kubeflow-namespace-0.1.0      	1.16.0     
-kubeflow-pipelines      	default  	1       	2022-07-28 12:51:57.293078 -0700 PDT	deployed	kubeflow-pipelines-0.1.0      	1.16.0     
-kubeflow-roles          	default  	1       	2022-07-28 12:31:03.351416 -0700 PDT	deployed	kubeflow-roles-0.1.0          	1.16.0     
-models-web-app          	default  	1       	2022-07-28 12:43:29.275867 -0700 PDT	deployed	models-web-app-0.1.0          	1.16.0     
-notebook-controller     	default  	1       	2022-07-28 12:42:58.397411 -0700 PDT	deployed	notebook-controller-0.1.0     	1.16.0     
-oidc-authservice        	default  	1       	2022-07-28 12:39:01.325914 -0700 PDT	deployed	oidc-authservice-0.1.0        	1.16.0     
-profiles-and-kfam       	default  	1       	2022-07-28 12:58:02.22225 -0700 PDT 	deployed	profiles-and-kfam-0.1.0       	1.16.0     
-tensorboard-controller  	default  	1       	2022-07-28 12:40:59.266969 -0700 PDT	deployed	tensorboard-controller-0.1.0  	1.16.0     
-tensorboards-web-app    	default  	1       	2022-07-28 12:41:26.352725 -0700 PDT	deployed	tensorboards-web-app-0.1.0    	1.16.0     
-training-operator       	default  	1       	2022-07-28 12:40:25.528385 -0700 PDT	deployed	training-operator-0.1.0       	1.16.0     
-user-namespace          	default  	1       	2022-07-28 12:58:32.830817 -0700 PDT	deployed	user-namespace-0.1.0          	1.16.0     
-volumes-web-app         	default  	1       	2022-07-28 12:41:57.884204 -0700 PDT	deployed	volumes-web-app-0.1.0         	1.16.0  
+$ helm list -A
+NAME                    	NAMESPACE   	REVISION	UPDATED                             	STATUS  	CHART                         	APP VERSION
+admission-webhook       	default     	1       	2022-08-01 22:30:00.564628 -0700 PDT	deployed	admission-webhook-0.1.0       	1.16.0     
+aws-secrets-manager     	default     	1       	2022-08-01 22:22:58.608745 -0700 PDT	deployed	aws-secrets-manager-0.1.0     	1.16.0     
+aws-telemetry           	default     	1       	2022-08-01 17:21:10.195479 -0700 PDT	deployed	aws-telemetry-0.1.0           	1.16.0     
+central-dashboard       	default     	1       	2022-08-01 17:21:21.310655 -0700 PDT	deployed	central-dashboard-0.1.0       	1.16.0     
+cert-manager            	cert-manager	1       	2022-08-01 15:44:31.798334 -0700 PDT	deployed	cert-manager-v1.5.0           	v1.5.0     
+cluster-local-gateway   	default     	1       	2022-08-01 17:16:15.751197 -0700 PDT	deployed	cluster-local-gateway-0.1.0   	1.16.0     
+dex                     	default     	1       	2022-08-01 23:58:22.411183 -0700 PDT	deployed	dex-0.1.0                     	1.16.0     
+istio-1-11              	default     	1       	2022-08-01 15:47:06.444182 -0700 PDT	deployed	istio-1-11-0.1.0              	1.16.0     
+jupyter-web-app         	default     	1       	2022-08-01 17:23:32.396849 -0700 PDT	deployed	jupyter-web-app-0.1.0         	1.16.0     
+katib                   	default     	1       	2022-08-01 17:33:01.807205 -0700 PDT	deployed	katib-0.1.0                   	1.16.0     
+knative-eventing        	default     	1       	2022-08-01 17:18:20.486062 -0700 PDT	deployed	knative-eventing-0.1.0        	1.16.0     
+knative-serving         	default     	1       	2022-08-01 17:16:45.779968 -0700 PDT	deployed	knative-serving-0.1.0         	1.16.0     
+kserve                  	default     	1       	2022-08-01 17:24:54.159497 -0700 PDT	deployed	kserve-0.1.0                  	1.16.0     
+kubeflow-issuer         	default     	1       	2022-08-01 17:15:49.128412 -0700 PDT	deployed	kubeflow-issuer-0.1.0         	1.16.0     
+kubeflow-istio-resources	default     	1       	2022-08-01 17:15:59.03287 -0700 PDT 	deployed	kubeflow-istio-resources-0.1.0	1.16.0     
+kubeflow-namespace      	default     	1       	2022-08-01 15:48:24.428391 -0700 PDT	deployed	kubeflow-namespace-0.1.0      	1.16.0     
+kubeflow-pipelines      	default     	3       	2022-08-01 22:17:29.324491 -0700 PDT	deployed	kubeflow-pipelines-0.1.0      	1.16.0     
+kubeflow-roles          	default     	1       	2022-08-01 17:15:29.553439 -0700 PDT	deployed	kubeflow-roles-0.1.0          	1.16.0     
+models-web-app          	default     	1       	2022-08-01 17:24:28.610643 -0700 PDT	deployed	models-web-app-0.1.0          	1.16.0     
+notebook-controller     	default     	1       	2022-08-01 17:23:58.231029 -0700 PDT	deployed	notebook-controller-0.1.0     	1.16.0     
+oidc-authservice        	default     	1       	2022-08-01 23:50:10.332276 -0700 PDT	deployed	oidc-authservice-0.1.0        	1.16.0     
+profiles-and-kfam       	default     	1       	2022-08-01 22:03:06.767057 -0700 PDT	deployed	profiles-and-kfam-0.1.0       	1.16.0     
+tensorboard-controller  	default     	1       	2022-08-01 17:22:23.865719 -0700 PDT	deployed	tensorboard-controller-0.1.0  	1.16.0     
+tensorboards-web-app    	default     	1       	2022-08-01 17:22:51.6382 -0700 PDT  	deployed	tensorboards-web-app-0.1.0    	1.16.0     
+training-operator       	default     	1       	2022-08-01 17:21:54.888535 -0700 PDT	deployed	training-operator-0.1.0       	1.16.0     
+user-namespace          	default     	1       	2022-08-01 22:03:33.013485 -0700 PDT	deployed	user-namespace-0.1.0          	1.16.0     
+volumes-web-app         	default     	1       	2022-08-01 17:23:13.419332 -0700 PDT	deployed	volumes-web-app-0.1.0         	1.16.0    
 ```
+
+
+10. Check all pods are running and ready:
+```bash
+NAMESPACE                   NAME                                                         READY   STATUS    RESTARTS   AGE
+auth                        dex-5ddf47d88d-2s6ph                                         1/1     Running   1          101s
+cert-manager                cert-manager-7c86cb795d-vtf9m                                1/1     Running   0          8h
+cert-manager                cert-manager-cainjector-7c96bbd9f5-4gm7k                     1/1     Running   0          8h
+cert-manager                cert-manager-webhook-f6648c54b-4mmjw                         1/1     Running   0          8h
+istio-system                authservice-0                                                1/1     Running   0          49s
+istio-system                cluster-local-gateway-64f58f66cb-lj4wp                       1/1     Running   0          6h43m
+istio-system                istio-ingressgateway-8577c57fb6-kvlh6                        1/1     Running   0          8h
+istio-system                istiod-6c86784695-nqktj                                      1/1     Running   0          8h
+knative-eventing            eventing-controller-79895f9c56-zx6gr                         1/1     Running   0          6h40m
+knative-eventing            eventing-webhook-78f897666-ljkp5                             1/1     Running   0          6h40m
+knative-eventing            imc-controller-688df5bdb4-tsw5n                              1/1     Running   0          6h40m
+knative-eventing            imc-dispatcher-646978d797-6stqx                              1/1     Running   0          6h40m
+knative-eventing            mt-broker-controller-67c977497-xlg4g                         1/1     Running   0          6h40m
+knative-eventing            mt-broker-filter-66d4d77c8b-g5898                            1/1     Running   0          6h40m
+knative-eventing            mt-broker-ingress-5c8dc4b5d7-sfk58                           1/1     Running   0          6h40m
+knative-serving             activator-7476cc56d4-ffhwg                                   2/2     Running   0          6h42m
+knative-serving             autoscaler-5c648f7465-rwspb                                  2/2     Running   0          6h42m
+knative-serving             controller-57c545cbfb-pt9n2                                  2/2     Running   0          6h42m
+knative-serving             istio-webhook-578b6b7654-bnzx6                               2/2     Running   0          6h42m
+knative-serving             networking-istio-6b88f745c-fk2wr                             2/2     Running   0          6h42m
+knative-serving             webhook-6fffdc4d78-nwnmj                                     2/2     Running   0          6h42m
+kserve                      kserve-controller-manager-0                                  2/2     Running   0          6h34m
+kube-system                 aws-node-7vwj6                                               1/1     Running   0          8h
+kube-system                 aws-node-g5m7x                                               1/1     Running   0          8h
+kube-system                 aws-node-t6qlb                                               1/1     Running   0          8h
+kube-system                 aws-node-wgw9r                                               1/1     Running   0          8h
+kube-system                 aws-node-wkflw                                               1/1     Running   0          8h
+kube-system                 coredns-86bcc74758-r9dkl                                     1/1     Running   0          8h
+kube-system                 coredns-86bcc74758-x747p                                     1/1     Running   0          8h
+kube-system                 csi-secrets-store-89p64                                      3/3     Running   0          7h54m
+kube-system                 csi-secrets-store-cd4jd                                      3/3     Running   0          7h54m
+kube-system                 csi-secrets-store-cjc97                                      3/3     Running   0          7h54m
+kube-system                 csi-secrets-store-n9r7w                                      3/3     Running   0          7h54m
+kube-system                 csi-secrets-store-provider-aws-58dn9                         1/1     Running   0          7h54m
+kube-system                 csi-secrets-store-provider-aws-gddhm                         1/1     Running   0          7h54m
+kube-system                 csi-secrets-store-provider-aws-ktsxw                         1/1     Running   0          7h54m
+kube-system                 csi-secrets-store-provider-aws-l45cl                         1/1     Running   0          7h54m
+kube-system                 csi-secrets-store-provider-aws-l4fv2                         1/1     Running   0          7h54m
+kube-system                 csi-secrets-store-qtw9f                                      3/3     Running   0          7h54m
+kube-system                 kube-proxy-45252                                             1/1     Running   0          8h
+kube-system                 kube-proxy-dcth4                                             1/1     Running   0          8h
+kube-system                 kube-proxy-qbz7z                                             1/1     Running   0          8h
+kube-system                 kube-proxy-t2fh2                                             1/1     Running   0          8h
+kube-system                 kube-proxy-wjd9h                                             1/1     Running   0          8h
+kubeflow-user-example-com   ml-pipeline-ui-artifact-8dcf69986-4684q                      2/2     Running   0          116m
+kubeflow-user-example-com   ml-pipeline-visualizationserver-7c8dfd5cb-r9q7v              2/2     Running   0          116m
+kubeflow                    admission-webhook-deployment-7df7558c67-tcbch                1/1     Running   0          117m
+kubeflow                    aws-secrets-sync-647d796d87-76v2m                            2/2     Running   0          97m
+kubeflow                    cache-server-5bdbd59959-7fthm                                2/2     Running   0         6h27m
+kubeflow                    centraldashboard-79f489b55-kc7m6                             2/2     Running   0          6h38m
+kubeflow                    jupyter-web-app-deployment-7cd59c5c95-hhrt5                  1/1     Running   0          6h36m
+kubeflow                    katib-controller-58ddb4b856-db7mb                            1/1     Running   0          6h26m
+kubeflow                    katib-db-manager-7868dccc54-h9w8q                            1/1     Running   0          6h26m
+kubeflow                    katib-ui-f787b9d88-9tbw6                                     1/1     Running   0          6h26m
+kubeflow                    kserve-models-web-app-5c64c8d8bb-sgkw9                       2/2     Running   0          6h35m
+kubeflow                    kubeflow-pipelines-profile-controller-84bcbdb899-tkdfm       1/1     Running   0          6h27m
+kubeflow                    metacontroller-0                                             1/1     Running   0          6h27m
+kubeflow                    metadata-envoy-deployment-86d856fc6-6dnqq                    1/1     Running   0          6h27m
+kubeflow                    metadata-grpc-deployment-f8d68f687-vkz2c                     2/2     Running   0         6h27m
+kubeflow                    metadata-writer-d7ff8d4bc-bm5ml                              2/2     Running   0         6h27m
+kubeflow                    minio-5b65df66c9-dpl8g                                       2/2     Running   0          6h27m
+kubeflow                    ml-pipeline-777648985d-sdjdn                                 2/2     Running   0         6h27m
+kubeflow                    ml-pipeline-persistenceagent-7bf47b869c-9r7cg                2/2     Running   0          6h27m
+kubeflow                    ml-pipeline-scheduledworkflow-565fd7846-lqhwv                2/2     Running   0          6h27m
+kubeflow                    ml-pipeline-ui-6c8b78ccd8-dqk7d                              2/2     Running   0          6h27m
+kubeflow                    ml-pipeline-viewer-crd-68bcdc87f9-48z5f                      2/2     Running   1          6h27m
+kubeflow                    ml-pipeline-visualizationserver-7bc59978d-gtslv              2/2     Running   0          6h27m
+kubeflow                    notebook-controller-deployment-7474fbff66-8zgkc              2/2     Running   1          6h35m
+kubeflow                    profiles-deployment-5cc86bc965-jn7gc                         3/3     Running   1          116m
+kubeflow                    tensorboard-controller-controller-manager-5cbddb7fb5-2l6gv   3/3     Running   1          6h37m
+kubeflow                    tensorboards-web-app-deployment-7c5db448d7-g7ltm             1/1     Running   0          6h37m
+kubeflow                    training-operator-6bfc7b8d86-jccv6                           1/1     Running   0          6h38m
+kubeflow                    volumes-web-app-deployment-87484c848-cm786                   1/1     Running   0          6h36m
+kubeflow                    workflow-controller-5cb67bb9db-5m4wb                         2/2     Running   0          6h27m
+```
+
 
 9. Verify the installation following (https://awslabs.github.io/kubeflow-manifests/docs/deployment/rds-s3/guide/#40-verify-the-installation)
 
