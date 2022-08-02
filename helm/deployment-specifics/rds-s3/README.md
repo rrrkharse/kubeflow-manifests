@@ -130,8 +130,8 @@ helm install kserve helm/apps/kserve;
         -`helm/deployment-specifics/rds-s3/rds-and-s3/kubeflow-pipelines/values.yaml` \
 You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.env`
 
-7. Configure for RDS and S3 to persist data: \
-        - Install **Kubeflow-pipelines**, **Katib** and **AWS-Secrets-Manager** \
+7. Configure for RDS and S3 to persist data: 
+        - Install **Kubeflow-pipelines**, **Katib** and **AWS-Secrets-Manager** 
         
 ```bash
 helm install kubeflow-pipelines helm/deployment-specifics/rds-s3/rds-and-s3/kubeflow-pipelines;
@@ -146,7 +146,7 @@ helm install aws-secrets-manager helm/deployment-specifics/rds-s3/rds-and-s3/aws
 You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.env`
 
 7. Configure for RDS to persist data: \
-        - Install **Kubeflow-pipelines**, **Katib** and **AWS-Secrets-Manager** \
+        - Install **Kubeflow-pipelines**, **Katib** and **AWS-Secrets-Manager** 
 
 ```bash
 helm install kubeflow-pipelines helm/deployment-specifics/rds-s3/rds-only/kubeflow-pipelines;
@@ -161,7 +161,7 @@ helm install aws-secrets-manager helm/deployment-specifics/rds-s3/rds-only/aws-s
 You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.env`
 
 7. Configure for S3 to persist data: \
-        - Install **Kubeflow-pipelines** \
+        - Install **Kubeflow-pipelines** 
 
 ```bash
 helm install kubeflow-pipelines helm/deployment-specifics/rds-s3/s3-only/kubeflow-pipelines;
@@ -171,7 +171,7 @@ helm install aws-secrets-manager helm/deployment-specifics/rds-s3/s3-only/aws-se
 
 
 
-8. Install **Admission Webhook** , **Profiles and Kubeflow Access-Management** and **User Namespace** \
+8. Install **Admission Webhook** , **Profiles and Kubeflow Access-Management** and **User Namespace** 
 ```bash
 helm install admission-webhook helm/apps/admission-webhook;
 helm install profiles-and-kfam helm/apps/profiles-and-kfam;
