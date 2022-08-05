@@ -154,11 +154,10 @@ helm install katib helm/deployment-specifics/rds-s3/rds-only/katib;
 helm install aws-secrets-manager helm/deployment-specifics/rds-s3/rds-only/aws-secrets-manager;
 ```
 
-## [S3 Only] Deploy only with RDS
+## [S3 Only] Deploy only with S3
 6. Filled in parameters for **values.yaml** in the following charts: \
         -`helm/deployment-specifics/rds-s3/s3-only/aws-secrets-manager/values.yaml` \
         -`helm/deployment-specifics/rds-s3/s3-only/kubeflow-pipelines/values.yaml` \
-You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.env`
 
 7. Configure for S3 to persist data: \
         - Install **Kubeflow-pipelines** 
@@ -182,6 +181,8 @@ helm install user-namespace helm/apps/user-namespace;
 ## Verify Installation
 
 9. Your should see helm releases are in deployed status:
+
+
 
 ```bash
 $ helm list -A
