@@ -11,7 +11,7 @@ spec:
     - --ts-config=/mnt/models/config/config.properties
     env:
     - name: TS_SERVICE_ENVELOPE
-      value: '{{.Labels.serviceEnvelope}}'
+      value: '{{`{{.Labels.serviceEnvelope}}`}}'
     image: kserve/torchserve-kfs:0.5.3
     name: kserve-container
     resources:

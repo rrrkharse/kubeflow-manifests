@@ -24,10 +24,10 @@ Be sure that you have satisfied the [Installation Prerequisite][] before working
 Install helm through `helm install [Release Name] [Path]` command: 
 
 
-1. Install Cert-Manager:
+1. Install Cert-Manager and Kubeflow-roles:
 
 ```bash
-helm install cert-manager helm/common/cert-manager \
+helm install cert-manager charts/common/cert-manager \
 --namespace cert-manager \
 --create-namespace \
 --set installCRDs=true
@@ -51,48 +51,55 @@ cert-manager-cainjector-577f6d9fd7-tr77l   1/1     Running   0          2m
 cert-manager-webhook-787858fcdb-nlzsq      1/1     Running   0          2m
 ```
 
-
-2. Install Istio:
-```bash
-helm install istio-1-11 helm/common/istio-1-11
+``bash
+helm install kubeflow-roles charts/common/kubeflow-roles;
 ```
 
-3. Install Kubeflow Namespace:
+2. Install Istio and Kubeflow-issuer:
 ```bash
-helm install kubeflow-namespace helm/common/kubeflow-namespace
+helm install istio-1-14 charts/common/istio-1-14;
+helm install kubeflow-issuer charts/common/kubeflow-issuer;
+
 ```
 
-4. Install Kubeflow Networking Components:
-
+3. Install Kubeflow Namespace, dex, knative
 ```bash
-helm install kubeflow-roles helm/apps/kubeflow-roles;
-helm install kubeflow-issuer helm/apps/kubeflow-issuer;
-helm install kubeflow-istio-resources helm/apps/kubeflow-istio-resources;
-helm install cluster-local-gateway helm/apps/cluster-local-gateway;
-helm install knative-serving helm/apps/knative-serving;
-helm install knative-eventing helm/apps/knative-eventing;
+helm install kubeflow-namespace charts/common/kubeflow-namespace;
+helm install dex charts/common/dex;
+helm install cluster-local-gateway charts/common/cluster-local-gateway;
+helm install knative-serving charts/common/knative-serving;
+helm install knative-eventing charts/common/knative-eventing;
 ```
 
-5. Install the rest of Kubeflow Components:
+4. Install OIDC-authservice, kubeflow-istio-resources, and Kserve:
 
 ```bash
-helm install dex helm/common/dex;
-helm install oidc-authservice helm/common/oidc-authservice;
-helm install admission-webhook helm/common/admission-webhook;
-helm install profile-and-kfam helm/common/profiles-and-kfam;
-helm install user-namespace helm/common/user-namespace;
-helm install aws-telemetry helm/common/aws-telemetry;
-helm install central-dashboard helm/apps/central-dashboard;
-helm install training-operator helm/apps/training-operator;
-helm install tensorboard-controller helm/apps/tensorboard-controller;
-helm install tensorboards-web-app helm/apps/tensorboards-web-app;
-helm install volumes-web-app helm/apps/volumes-web-app;
-helm install jupyter-web-app helm/apps/jupyter-web-app;
-helm install notebook-controller helm/apps/notebook-controller;
-helm install katib helm/apps/katib;
-helm install models-web-app helm/apps/models-web-app;
-helm install kserve helm/apps/kserve;
-helm install kubeflow-pipelines helm/apps/kubeflow-pipelines
+helm install oidc-authservice charts/common/oidc-authservice;
+helm install kubeflow-istio-resources charts/common/kubeflow-istio-resources;
+helm install kserve charts/common/kserve;
+```
+
+5. Install Kubeflow Components and profiles-and-kfam:
+
+```bash
+helm install admission-webhook charts/common/admission-webhook;
+helm install profile-and-kfam charts/common/profiles-and-kfam;
+helm install aws-telemetry charts/common/aws-telemetry;
+helm install central-dashboard charts/apps/central-dashboard;
+helm install training-operator charts/apps/training-operator;
+helm install tensorboard-controller charts/apps/tensorboard-controller;
+helm install tensorboards-web-app charts/apps/tensorboards-web-app;
+helm install volumes-web-app charts/apps/volumes-web-app;
+helm install jupyter-web-app charts/apps/jupyter-web-app;
+helm install notebook-controller charts/apps/notebook-controller;
+helm install katib charts/apps/katib;
+helm install models-web-app charts/apps/models-web-app;
+helm install kubeflow-pipelines charts/apps/kubeflow-pipelines
+```
+
+6. Install user-namespace
+```bash
+helm install user-namespace charts/common/user-namespace;
 ```
 
 ## Connect to your Kubeflow cluster 
