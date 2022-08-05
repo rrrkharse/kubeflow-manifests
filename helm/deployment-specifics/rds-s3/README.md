@@ -130,7 +130,7 @@ helm install kserve helm/apps/kserve;
         -`helm/deployment-specifics/rds-s3/rds-and-s3/kubeflow-pipelines/values.yaml` \
 You can file your rds-host end point from `awsconfigs/apps/pipeline/rds/params.env`
 
-7. Configure for RDS and S3 to persist data: 
+7. Configure for RDS and S3 to persist data: \
         - Install **Kubeflow-pipelines**, **Katib** and **AWS-Secrets-Manager** 
         
 ```bash

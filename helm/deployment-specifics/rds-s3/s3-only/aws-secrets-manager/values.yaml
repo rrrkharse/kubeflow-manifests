@@ -1,2 +1,2 @@
 s3:
-  secretName: #s3-secret
+  secretName: jsitu-s3-secret-11

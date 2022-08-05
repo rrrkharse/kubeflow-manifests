@@ -76,12 +76,12 @@ helm install knative-eventing helm/apps/knative-eventing;
 5. Install the rest of Kubeflow Components:
 
 ```bash
-helm install dex helm/apps/dex;
-helm install oidc-authservice helm/apps/oidc-authservice;
-helm install admission-webhook helm/apps/admission-webhook;
-helm install profile-and-kfam helm/apps/profiles-and-kfam;
-helm install user-namespace helm/apps/user-namespace;
-helm install aws-telemetry helm/apps/aws-telemetry;
+helm install dex helm/common/dex;
+helm install oidc-authservice helm/common/oidc-authservice;
+helm install admission-webhook helm/common/admission-webhook;
+helm install profile-and-kfam helm/common/profiles-and-kfam;
+helm install user-namespace helm/common/user-namespace;
+helm install aws-telemetry helm/common/aws-telemetry;
 helm install central-dashboard helm/apps/central-dashboard;
 helm install training-operator helm/apps/training-operator;
 helm install tensorboard-controller helm/apps/tensorboard-controller;
@@ -147,6 +147,79 @@ training-operator       	default  	1       	2022-07-28 12:40:25.528385 -0700 PDT
 user-namespace          	default  	1       	2022-07-28 12:58:32.830817 -0700 PDT	deployed	user-namespace-0.1.0          	1.16.0     
 volumes-web-app         	default  	1       	2022-07-28 12:41:57.884204 -0700 PDT	deployed	volumes-web-app-0.1.0         	1.16.0  
 ```
+
+Check all Pods are running:
+
+```bash
+$ kubectl get pods -A
+NAMESPACE                   NAME                                                         READY   STATUS    RESTARTS   AGE
+auth                        dex-5ddf47d88d-6zdkk                                         1/1     Running   1          13h
+cert-manager                cert-manager-7c86cb795d-62dn5                                1/1     Running   0          13h
+cert-manager                cert-manager-cainjector-7c96bbd9f5-h5v9p                     1/1     Running   0          13h
+cert-manager                cert-manager-webhook-f6648c54b-cx7f2                         1/1     Running   0          13h
+istio-system                authservice-0                                                1/1     Running   0          13h
+istio-system                cluster-local-gateway-64f58f66cb-vjd2c                       1/1     Running   0          12h
+istio-system                istio-ingressgateway-8577c57fb6-tnfd4                        1/1     Running   0          13h
+istio-system                istiod-6c86784695-skx7x                                      1/1     Running   0          13h
+knative-eventing            eventing-controller-79895f9c56-78b7s                         1/1     Running   0          12h
+knative-eventing            eventing-webhook-78f897666-r28ll                             1/1     Running   0          12h
+knative-eventing            imc-controller-688df5bdb4-hsdv9                              1/1     Running   0          12h
+knative-eventing            imc-dispatcher-646978d797-xcchg                              1/1     Running   0          12h
+knative-eventing            mt-broker-controller-67c977497-bc4nr                         1/1     Running   0          12h
+knative-eventing            mt-broker-filter-66d4d77c8b-qz559                            1/1     Running   0          12h
+knative-eventing            mt-broker-ingress-5c8dc4b5d7-59ttr                           1/1     Running   0          12h
+knative-serving             activator-7476cc56d4-cf2kr                                   2/2     Running   0          12h
+knative-serving             autoscaler-5c648f7465-56dmm                                  2/2     Running   0          12h
+knative-serving             controller-57c545cbfb-q676h                                  2/2     Running   0          12h
+knative-serving             istio-webhook-578b6b7654-d8m57                               2/2     Running   0          12h
+knative-serving             networking-istio-6b88f745c-gmqjx                             2/2     Running   0          12h
+knative-serving             webhook-6fffdc4d78-qrht6                                     2/2     Running   0          12h
+kserve                      kserve-controller-manager-0                                  2/2     Running   0          11h
+kube-system                 aws-node-25jbk                                               1/1     Running   0          20h
+kube-system                 aws-node-27fsc                                               1/1     Running   1          20h
+kube-system                 aws-node-qdppn                                               1/1     Running   0          20h
+kube-system                 aws-node-r6nll                                               1/1     Running   0          20h
+kube-system                 aws-node-sqwp5                                               1/1     Running   0          20h
+kube-system                 coredns-85d5b4454c-74trc                                     1/1     Running   0          20h
+kube-system                 coredns-85d5b4454c-kjlq9                                     1/1     Running   0          20h
+kube-system                 kube-proxy-2gtsm                                             1/1     Running   0          20h
+kube-system                 kube-proxy-rkxzl                                             1/1     Running   0          20h
+kube-system                 kube-proxy-wjx7w                                             1/1     Running   0          20h
+kube-system                 kube-proxy-wsdhz                                             1/1     Running   0          20h
+kube-system                 kube-proxy-x7lqs                                             1/1     Running   0          20h
+kubeflow-user-example-com   ml-pipeline-ui-artifact-8dcf69986-chqvn                      2/2     Running   0          2m17s
+kubeflow-user-example-com   ml-pipeline-visualizationserver-7c8dfd5cb-8hw5h              2/2     Running   0          2m17s
+kubeflow                    admission-webhook-deployment-7df7558c67-hd7vh                1/1     Running   0          11h
+kubeflow                    cache-server-5bdbd59959-pfz6k                                2/2     Running   0          12h
+kubeflow                    centraldashboard-79f489b55-t6bt7                             2/2     Running   0          11h
+kubeflow                    jupyter-web-app-deployment-7cd59c5c95-s6v7x                  1/1     Running   0          41m
+kubeflow                    katib-controller-58ddb4b856-vpjjn                            1/1     Running   0          11h
+kubeflow                    katib-db-manager-d77c6757f-cnt6m                             1/1     Running   0          11h
+kubeflow                    katib-mysql-7894994f88-sq7st                                 1/1     Running   0          11h
+kubeflow                    katib-ui-f787b9d88-s9jdp                                     1/1     Running   0          11h
+kubeflow                    kserve-models-web-app-5c64c8d8bb-dpv5t                       2/2     Running   0          11h
+kubeflow                    kubeflow-pipelines-profile-controller-84bcbdb899-tst5c       1/1     Running   0          12h
+kubeflow                    metacontroller-0                                             1/1     Running   0          12h
+kubeflow                    metadata-envoy-deployment-86d856fc6-zggtc                    1/1     Running   0          12h
+kubeflow                    metadata-grpc-deployment-f8d68f687-qlpcd                     2/2     Running   3          12h
+kubeflow                    metadata-writer-d7ff8d4bc-nzczk                              2/2     Running   0          12h
+kubeflow                    minio-5b65df66c9-6c2r9                                       2/2     Running   0          12h
+kubeflow                    ml-pipeline-7499f55b46-dkrmj                                 2/2     Running   1          12h
+kubeflow                    ml-pipeline-persistenceagent-7bf47b869c-tgrbm                2/2     Running   0          12h
+kubeflow                    ml-pipeline-scheduledworkflow-565fd7846-cvhvm                2/2     Running   0          12h
+kubeflow                    ml-pipeline-ui-77477f77dc-m4n2f                              2/2     Running   0          12h
+kubeflow                    ml-pipeline-viewer-crd-68bcdc87f9-8lxfm                      2/2     Running   1          12h
+kubeflow                    ml-pipeline-visualizationserver-7bc59978d-28k9z              2/2     Running   0          12h
+kubeflow                    mysql-f7b9b7dd4-7pz6x                                        2/2     Running   0          12h
+kubeflow                    notebook-controller-deployment-7474fbff66-tnv4d              2/2     Running   1          43m
+kubeflow                    profiles-deployment-5cc86bc965-c6rjl                         3/3     Running   1          39m
+kubeflow                    tensorboard-controller-controller-manager-5cbddb7fb5-bsstp   3/3     Running   1          34m
+kubeflow                    tensorboards-web-app-deployment-7c5db448d7-p46vn             1/1     Running   0          33m
+kubeflow                    training-operator-6bfc7b8d86-9ps7z                           1/1     Running   0          11m
+kubeflow                    volumes-web-app-deployment-87484c848-d4j9t                   1/1     Running   0          37m
+kubeflow                    workflow-controller-5cb67bb9db-2xm5m                         2/2     Running   1          12h
+```
+
 
 
 
