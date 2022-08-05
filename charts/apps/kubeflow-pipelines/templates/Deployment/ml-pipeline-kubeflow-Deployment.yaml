@@ -90,7 +90,7 @@ spec:
         envFrom:
         - configMapRef:
             name: pipeline-api-server-config-f4t72426kt
-        image: gcr.io/ml-pipeline/api-server:1.8.2
+        image: gcr.io/ml-pipeline/api-server:2.0.0-alpha.3
         imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:
@@ -126,4 +126,16 @@ spec:
           requests:
             cpu: 250m
             memory: 500Mi
+        startupProbe:
+          exec:
+            command:
+            - wget
+            - -q
+            - -S
+            - -O
+            - '-'
+            - http://localhost:8888/apis/v1beta1/healthz
+          failureThreshold: 12
+          periodSeconds: 5
+          timeoutSeconds: 2
       serviceAccountName: ml-pipeline

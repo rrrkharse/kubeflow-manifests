@@ -2,7 +2,7 @@ apiVersion: v1
 data:
   ConMaxLifeTime: 120s
   appName: pipeline
-  appVersion: 1.8.2
+  appVersion: 2.0.0-alpha.3
   autoUpdatePipelineDefaultVersion: 'true'
   bucketName: mlpipeline
   cacheDb: cachedb
@@ -25,7 +25,7 @@ data:
 
     until the changes take effect. A quick way to restart all deployments in a
 
-    namespace: "kubectl rollout restart deployment -n <your-namespace>".
+    namespace: `kubectl rollout restart deployment -n <your-namespace>`.
 
     '
 kind: ConfigMap

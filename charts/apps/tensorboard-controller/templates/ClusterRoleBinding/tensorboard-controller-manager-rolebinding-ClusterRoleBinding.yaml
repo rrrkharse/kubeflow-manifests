@@ -11,5 +11,5 @@ roleRef:
   name: tensorboard-controller-manager-role
 subjects:
 - kind: ServiceAccount
-  name: tensorboard-controller
+  name: tensorboard-controller-controller-manager
   namespace: kubeflow

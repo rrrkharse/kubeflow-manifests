@@ -33,7 +33,7 @@ spec:
           value: 'true'
         - name: MYSQL_DATABASE
           value: katib
-        image: mysql:8.0.26
+        image: mysql:8.0.29
         livenessProbe:
           exec:
             command:
@@ -41,7 +41,8 @@ spec:
             - -c
             - mysqladmin ping -u root -p${MYSQL_ROOT_PASSWORD}
           failureThreshold: 10
-          periodSeconds: 2
+          initialDelaySeconds: 10
+          periodSeconds: 5
         name: katib-mysql
         ports:
         - containerPort: 3306
@@ -54,7 +55,8 @@ spec:
             - mysql -D ${MYSQL_DATABASE} -u root -p${MYSQL_ROOT_PASSWORD} -e 'SELECT
               1'
           failureThreshold: 10
-          periodSeconds: 2
+          initialDelaySeconds: 10
+          periodSeconds: 5
         startupProbe:
           exec:
             command:

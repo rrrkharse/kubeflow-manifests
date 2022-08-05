@@ -64,5 +64,5 @@ spec:
           name: hooks
       volumes:
       - configMap:
-          name: kubeflow-pipelines-profile-controller-code-4g2hc9g6bb
+          name: kubeflow-pipelines-profile-controller-code-btcch948fc
         name: hooks

@@ -21,7 +21,7 @@ spec:
         - --configmap
         - workflow-controller-configmap
         - --executor-image
-        - gcr.io/ml-pipeline/argoexec:v3.2.3-license-compliance
+        - gcr.io/ml-pipeline/argoexec:v3.3.8-license-compliance
         command:
         - workflow-controller
         env:
@@ -30,7 +30,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.name
-        image: gcr.io/ml-pipeline/workflow-controller:v3.2.3-license-compliance
+        image: gcr.io/ml-pipeline/workflow-controller:v3.3.8-license-compliance
         livenessProbe:
           failureThreshold: 3
           httpGet:
@@ -57,6 +57,7 @@ spec:
           runAsNonRoot: true
       nodeSelector:
         kubernetes.io/os: linux
+      priorityClassName: workflow-controller
       securityContext:
         runAsNonRoot: true
       serviceAccountName: argo
