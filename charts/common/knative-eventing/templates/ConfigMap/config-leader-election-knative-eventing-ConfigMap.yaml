@@ -28,25 +28,25 @@ data:
     # to actually change the configuration.
 
 
-    # leaseDuration is how long non-leaders will wait to try to acquire the
+    # lease-duration is how long non-leaders will wait to try to acquire the
 
     # lock; 15 seconds is the value used by core kubernetes controllers.
 
-    leaseDuration: "15s"
+    lease-duration: "15s"
 
 
-    # renewDeadline is how long a leader will try to renew the lease before
+    # renew-deadline is how long a leader will try to renew the lease before
 
     # giving up; 10 seconds is the value used by core kubernetes controllers.
 
-    renewDeadline: "10s"
+    renew-deadline: "10s"
 
 
-    # retryPeriod is how long the leader election client waits between tries of
+    # retry-period is how long the leader election client waits between tries of
 
     # actions; 2 seconds is the value used by core kubernetes controllers.
 
-    retryPeriod: "2s"
+    retry-period: "2s"
 
 
     # buckets is the number of buckets used to partition key space of each
@@ -65,11 +65,12 @@ data:
 kind: ConfigMap
 metadata:
   annotations:
-    knative.dev/example-checksum: 96896b00
+    knative.dev/example-checksum: f7948630
   labels:
     app.kubernetes.io/component: knative-eventing
     app.kubernetes.io/name: knative-eventing
-    eventing.knative.dev/release: v0.22.1
+    app.kubernetes.io/version: 1.2.4
+    eventing.knative.dev/release: v1.2.4
     kustomize.component: knative
   name: config-leader-election
   namespace: knative-eventing

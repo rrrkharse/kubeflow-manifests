@@ -1,6 +1,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
+  labels:
+    app: kserve
+    app.kubernetes.io/name: kserve
   name: kserve-proxy-role
 rules:
 - apiGroups:

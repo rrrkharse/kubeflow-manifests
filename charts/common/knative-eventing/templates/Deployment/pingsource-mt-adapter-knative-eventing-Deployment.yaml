@@ -4,7 +4,8 @@ metadata:
   labels:
     app.kubernetes.io/component: knative-eventing
     app.kubernetes.io/name: knative-eventing
-    eventing.knative.dev/release: v0.22.1
+    app.kubernetes.io/version: 1.2.4
+    eventing.knative.dev/release: v1.2.4
     kustomize.component: knative
   name: pingsource-mt-adapter
   namespace: knative-eventing
@@ -22,11 +23,25 @@ spec:
       labels:
         app.kubernetes.io/component: knative-eventing
         app.kubernetes.io/name: knative-eventing
-        eventing.knative.dev/release: v0.22.1
+        app.kubernetes.io/version: 1.2.4
+        eventing.knative.dev/release: v1.2.4
         eventing.knative.dev/source: ping-source-controller
         kustomize.component: knative
         sources.knative.dev/role: adapter
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: knative-eventing
+                  app.kubernetes.io/name: knative-eventing
+                  eventing.knative.dev/source: ping-source-controller
+                  kustomize.component: knative
+                  sources.knative.dev/role: adapter
+              topologyKey: kubernetes.io/hostname
+            weight: 100
       containers:
       - env:
         - name: SYSTEM_NAMESPACE
@@ -49,7 +64,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: gcr.io/knative-releases/knative.dev/eventing/cmd/mtping@sha256:edf462d03591e53e536640591a53538e6bea837fea15ed081eccfb42bc35a5c0
+        image: gcr.io/knative-releases/knative.dev/eventing/cmd/mtping@sha256:632d9d710d070efed2563f6125a87993e825e8e36562ec3da0366e2a897406c0
         name: dispatcher
         ports:
         - containerPort: 9090
@@ -62,5 +77,12 @@ spec:
           requests:
             cpu: 125m
             memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
       enableServiceLinks: false
       serviceAccountName: pingsource-mt-adapter

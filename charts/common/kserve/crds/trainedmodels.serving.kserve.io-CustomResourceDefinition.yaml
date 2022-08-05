@@ -4,6 +4,9 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.4.0
   creationTimestamp: null
+  labels:
+    app: kserve
+    app.kubernetes.io/name: kserve
   name: trainedmodels.serving.kserve.io
 spec:
   group: serving.kserve.io

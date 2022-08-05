@@ -4,24 +4,15 @@ metadata:
   labels:
     app.kubernetes.io/component: knative-eventing
     app.kubernetes.io/name: knative-eventing
+    app.kubernetes.io/version: 1.2.4
     duck.knative.dev/binding: 'true'
     duck.knative.dev/source: 'true'
-    eventing.knative.dev/release: v0.22.1
+    eventing.knative.dev/release: v1.2.4
     eventing.knative.dev/source: 'true'
     knative.dev/crd-install: 'true'
     kustomize.component: knative
   name: sinkbindings.sources.knative.dev
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: eventing-webhook
-          namespace: knative-eventing
-      conversionReviewVersions:
-      - v1
-      - v1beta1
   group: sources.knative.dev
   names:
     categories:
@@ -47,72 +38,6 @@ spec:
     - jsonPath: .status.conditions[?(@.type=='Ready')].reason
       name: Reason
       type: string
-    name: v1alpha1
-    schema:
-      openAPIV3Schema:
-        type: object
-        x-kubernetes-preserve-unknown-fields: true
-    served: true
-    storage: false
-    subresources:
-      status: {}
-  - additionalPrinterColumns:
-    - jsonPath: .status.sinkUri
-      name: Sink
-      type: string
-    - jsonPath: .metadata.creationTimestamp
-      name: Age
-      type: date
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: Ready
-      type: string
-    - jsonPath: .status.conditions[?(@.type=='Ready')].reason
-      name: Reason
-      type: string
-    name: v1alpha2
-    schema:
-      openAPIV3Schema:
-        type: object
-        x-kubernetes-preserve-unknown-fields: true
-    served: true
-    storage: false
-    subresources:
-      status: {}
-  - additionalPrinterColumns:
-    - jsonPath: .status.sinkUri
-      name: Sink
-      type: string
-    - jsonPath: .metadata.creationTimestamp
-      name: Age
-      type: date
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: Ready
-      type: string
-    - jsonPath: .status.conditions[?(@.type=='Ready')].reason
-      name: Reason
-      type: string
-    name: v1beta1
-    schema:
-      openAPIV3Schema:
-        type: object
-        x-kubernetes-preserve-unknown-fields: true
-    served: true
-    storage: false
-    subresources:
-      status: {}
-  - additionalPrinterColumns:
-    - jsonPath: .status.sinkUri
-      name: Sink
-      type: string
-    - jsonPath: .metadata.creationTimestamp
-      name: Age
-      type: date
-    - jsonPath: .status.conditions[?(@.type=='Ready')].status
-      name: Ready
-      type: string
-    - jsonPath: .status.conditions[?(@.type=='Ready')].reason
-      name: Reason
-      type: string
     name: v1
     schema:
       openAPIV3Schema:
@@ -123,20 +48,17 @@ spec:
           send cloud events.
         properties:
           spec:
-            description: SinkBindingSpec holds the desired state of the SinkBinding
-              (from the client).
             properties:
               ceOverrides:
                 description: CloudEventOverrides defines overrides to control the
                   output format and modifications of the event sent to the sink.
                 properties:
                   extensions:
-                    additionalProperties:
-                      type: string
                     description: Extensions specify what attribute are added or overridden
                       on the outbound event. Each `Extensions` key-value pair are
                       set on the event as an attribute extension independently.
                     type: object
+                    x-kubernetes-preserve-unknown-fields: true
                 type: object
               sink:
                 description: Sink is a reference to an object that will resolve to
@@ -223,8 +145,6 @@ spec:
                 type: object
             type: object
           status:
-            description: SinkBindingStatus communicates the observed state of the
-              SinkBinding (from the controller).
             properties:
               annotations:
                 description: Annotations is additional Status fields for the Resource

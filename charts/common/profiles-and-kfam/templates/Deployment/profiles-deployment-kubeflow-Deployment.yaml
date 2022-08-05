@@ -29,7 +29,7 @@ spec:
         envFrom:
         - configMapRef:
             name: profiles-config-2g29dd2mbd
-        image: public.ecr.aws/j1r0q0g6/notebooks/access-management:v1.5.0
+        image: docker.io/kubeflownotebookswg/kfam:v1.6.0-rc.1
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
@@ -53,19 +53,23 @@ spec:
         envFrom:
         - configMapRef:
             name: profiles-config-2g29dd2mbd
-        image: public.ecr.aws/j1r0q0g6/notebooks/profile-controller:v1.5.0
+        image: docker.io/kubeflownotebookswg/profile-controller:v1.6.0-rc.1
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
-            path: /metrics
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 30
+            path: /healthz
+            port: 9876
+          initialDelaySeconds: 15
+          periodSeconds: 20
         name: manager
         ports:
-        - containerPort: 8080
-          name: manager-http
-          protocol: TCP
+        - containerPort: 9876
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 9876
+          initialDelaySeconds: 5
+          periodSeconds: 10
         volumeMounts:
         - mountPath: /etc/profile-controller
           name: namespace-labels

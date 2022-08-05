@@ -2,7 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    serving.knative.dev/release: v0.22.1
+    app.kubernetes.io/component: autoscaler
+    app.kubernetes.io/name: knative-serving
+    app.kubernetes.io/version: 1.2.5
+    serving.knative.dev/release: v1.2.5
   name: autoscaler
   namespace: knative-serving
 spec:
@@ -10,6 +13,10 @@ spec:
   selector:
     matchLabels:
       app: autoscaler
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
   template:
     metadata:
       annotations:
@@ -17,7 +24,10 @@ spec:
         sidecar.istio.io/inject: 'true'
       labels:
         app: autoscaler
-        serving.knative.dev/release: v0.22.1
+        app.kubernetes.io/component: autoscaler
+        app.kubernetes.io/name: knative-serving
+        app.kubernetes.io/version: 1.2.5
+        serving.knative.dev/release: v1.2.5
     spec:
       affinity:
         podAntiAffinity:
@@ -48,7 +58,7 @@ spec:
           value: config-observability
         - name: METRICS_DOMAIN
           value: knative.dev/serving
-        image: gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler@sha256:bc5ae3090ab0322ed0e4f9efddb60fa85f6ff3a29156411d24d0e4764b18eba7
+        image: gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler@sha256:007820fdb75b60e6fd5a25e65fd6ad9744082a6bf195d72795561c91b425d016
         livenessProbe:
           failureThreshold: 6
           httpGet:

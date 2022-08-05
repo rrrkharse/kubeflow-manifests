@@ -2,7 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    serving.knative.dev/release: v0.22.1
+    app.kubernetes.io/component: activator
+    app.kubernetes.io/name: knative-serving
+    app.kubernetes.io/version: 1.2.5
+    serving.knative.dev/release: v1.2.5
   name: activator
   namespace: knative-serving
 spec:
@@ -17,8 +20,11 @@ spec:
         sidecar.istio.io/inject: 'true'
       labels:
         app: activator
+        app.kubernetes.io/component: activator
+        app.kubernetes.io/name: knative-serving
+        app.kubernetes.io/version: 1.2.5
         role: activator
-        serving.knative.dev/release: v0.22.1
+        serving.knative.dev/release: v1.2.5
     spec:
       containers:
       - env:
@@ -42,7 +48,7 @@ spec:
           value: config-observability
         - name: METRICS_DOMAIN
           value: knative.dev/internal/serving
-        image: gcr.io/knative-releases/knative.dev/serving/cmd/activator@sha256:fed92af8b9779c97482906db8857f27b5d4826708b75d0298aa30fad8900671f
+        image: gcr.io/knative-releases/knative.dev/serving/cmd/activator@sha256:93ff6e69357785ff97806945b284cbd1d37e50402b876a320645be8877c0d7b7
         livenessProbe:
           failureThreshold: 12
           httpGet:
@@ -51,6 +57,7 @@ spec:
               value: activator
             port: 8012
           initialDelaySeconds: 15
+          periodSeconds: 10
         name: activator
         ports:
         - containerPort: 9090
@@ -62,12 +69,13 @@ spec:
         - containerPort: 8013
           name: h2c
         readinessProbe:
-          failureThreshold: 12
+          failureThreshold: 5
           httpGet:
             httpHeaders:
             - name: k-kubelet-probe
               value: activator
             port: 8012
+          periodSeconds: 5
         resources:
           limits:
             cpu: 1000m

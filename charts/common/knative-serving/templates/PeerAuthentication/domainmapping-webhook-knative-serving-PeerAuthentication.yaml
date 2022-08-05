@@ -2,8 +2,11 @@ apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
   labels:
+    app.kubernetes.io/component: net-istio
+    app.kubernetes.io/name: knative-serving
+    app.kubernetes.io/version: 1.2.0
     networking.knative.dev/ingress-provider: istio
-    serving.knative.dev/release: v0.22.1
+    serving.knative.dev/release: v1.2.0
   name: domainmapping-webhook
   namespace: knative-serving
 spec:

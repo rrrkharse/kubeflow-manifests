@@ -9,4 +9,4 @@ spec:
   - {}
   selector:
     matchLabels:
-      app: istio-webhook
+      app: net-istio-webhook

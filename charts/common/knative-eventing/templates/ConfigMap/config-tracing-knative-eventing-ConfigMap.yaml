@@ -28,7 +28,7 @@ data:
 
     #
 
-    # This may be "zipkin" or "stackdriver", the default is "none"
+    # This may be "zipkin" or "none". the default is "none"
 
     backend: "none"
 
@@ -38,15 +38,6 @@ data:
     # This must be specified when backend is "zipkin"
 
     zipkin-endpoint: "http://zipkin.istio-system.svc.cluster.local:9411/api/v2/spans"
-
-
-    # The GCP project into which stackdriver metrics will be written
-
-    # when backend is "stackdriver".  If unspecified, the project-id
-
-    # is read from GCP metadata when running on GCP.
-
-    stackdriver-project-id: "my-project"
 
 
     # Enable zipkin debug mode. This allows all spans to be sent to the server
@@ -64,11 +55,12 @@ data:
 kind: ConfigMap
 metadata:
   annotations:
-    knative.dev/example-checksum: 4002b4c2
+    knative.dev/example-checksum: 0492ceb0
   labels:
     app.kubernetes.io/component: knative-eventing
     app.kubernetes.io/name: knative-eventing
-    eventing.knative.dev/release: v0.22.1
+    app.kubernetes.io/version: 1.2.4
+    eventing.knative.dev/release: v1.2.4
     knative.dev/config-category: eventing
     knative.dev/config-propagation: original
     kustomize.component: knative

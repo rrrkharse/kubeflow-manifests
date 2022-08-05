@@ -1,4 +1,4 @@
-apiVersion: admissionregistration.k8s.io/v1beta1
+apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   annotations:
@@ -10,12 +10,16 @@ metadata:
     kustomize.component: poddefaults
   name: admission-webhook-mutating-webhook-configuration
 webhooks:
-- clientConfig:
+- admissionReviewVersions:
+  - v1beta1
+  - v1
+  clientConfig:
     caBundle: ''
     service:
       name: admission-webhook-service
       namespace: kubeflow
       path: /apply-poddefault
+  failurePolicy: Fail
   name: admission-webhook-deployment.kubeflow.org
   namespaceSelector:
     matchLabels:
@@ -29,3 +33,4 @@ webhooks:
     - CREATE
     resources:
     - pods
+  sideEffects: None
