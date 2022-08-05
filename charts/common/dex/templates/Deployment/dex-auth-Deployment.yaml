@@ -28,7 +28,7 @@ spec:
         envFrom:
         - secretRef:
             name: dex-oidc-client
-        image: ghcr.io/dexidp/dex:v2.31.2
+        image: quay.io/dexidp/dex:v2.24.0
         name: dex
         ports:
         - containerPort: 5556
