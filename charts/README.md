@@ -83,7 +83,7 @@ helm install kserve charts/common/kserve;
 
 ```bash
 helm install admission-webhook charts/common/admission-webhook;
-helm install profile-and-kfam charts/common/profiles-and-kfam;
+helm install profiles-and-kfam charts/common/profiles-and-kfam;
 helm install aws-telemetry charts/common/aws-telemetry;
 helm install central-dashboard charts/apps/central-dashboard;
 helm install training-operator charts/apps/training-operator;
