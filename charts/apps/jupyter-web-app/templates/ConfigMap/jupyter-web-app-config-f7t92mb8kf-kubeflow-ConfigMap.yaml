@@ -11,22 +11,24 @@ data:
     \ be available for users to edit.\n#\n# Note that some values can be templated.\
     \ Such values are the names of the\n# Volumes as well as their StorageClass\n\
     spawnerFormDefaults:\n  image:\n    # The container Image for the user's Jupyter\
-    \ Notebook\n    value: kubeflownotebookswg/jupyter-scipy:v1.6.0-rc.1\n    # The\
-    \ list of available standard container Images\n    options:\n    - kubeflownotebookswg/jupyter-scipy:v1.6.0-rc.1\n\
-    \    - kubeflownotebookswg/jupyter-pytorch-full:v1.6.0-rc.1\n    - kubeflownotebookswg/jupyter-pytorch-cuda-full:v1.6.0-rc.1\n\
-    \    - kubeflownotebookswg/jupyter-tensorflow-full:v1.6.0-rc.1\n    - kubeflownotebookswg/jupyter-tensorflow-cuda-full:v1.6.0-rc.1\n\
+    \ Notebook\n    value: public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-scipy:v1.5.0\n\
+    \    # The list of available standard container Images\n    options:\n    - public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-scipy:v1.5.0\n\
+    \    - public.ecr.aws/c9e4w0g3/notebook-servers/jupyter-tensorflow:2.6.3-gpu-py38-cu112-ubuntu20.04-v1.8\n\
+    \    - public.ecr.aws/c9e4w0g3/notebook-servers/jupyter-tensorflow:2.6.3-cpu-py38-ubuntu20.04-v1.8\n\
+    \    - public.ecr.aws/c9e4w0g3/notebook-servers/jupyter-pytorch:1.11.0-gpu-py38-cu115-ubuntu20.04-e3-v1.1\n\
+    \    - public.ecr.aws/c9e4w0g3/notebook-servers/jupyter-pytorch:1.11.0-cpu-py38-ubuntu20.04-e3-v1.1\n\
     \  imageGroupOne:\n    # The container Image for the user's Group One Server\n\
     \    # The annotation `notebooks.kubeflow.org/http-rewrite-uri: /`\n    # is applied\
     \ to notebook in this group, configuring\n    # the Istio rewrite for containers\
-    \ that host their web UI at `/`\n    value: kubeflownotebookswg/codeserver-python:v1.6.0-rc.1\n\
-    \    # The list of available standard container Images\n    options:\n    - kubeflownotebookswg/codeserver-python:v1.6.0-rc.1\n\
+    \ that host their web UI at `/`\n    value: public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/codeserver-python:v1.5.0\n\
+    \    # The list of available standard container Images\n    options:\n    - public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/codeserver-python:v1.5.0\n\
     \  imageGroupTwo:\n    # The container Image for the user's Group Two Server\n\
     \    # The annotation `notebooks.kubeflow.org/http-rewrite-uri: /`\n    # is applied\
     \ to notebook in this group, configuring\n    # the Istio rewrite for containers\
     \ that host their web UI at `/`\n    # The annotation `notebooks.kubeflow.org/http-headers-request-set`\n\
     \    # is applied to notebook in this group, configuring Istio\n    # to add the\
-    \ `X-RStudio-Root-Path` header to requests\n    value: kubeflownotebookswg/rstudio-tidyverse:v1.6.0-rc.1\n\
-    \    # The list of available standard container Images\n    options:\n    - kubeflownotebookswg/rstudio-tidyverse:v1.6.0-rc.1\n\
+    \ `X-RStudio-Root-Path` header to requests\n    value: public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/rstudio-tidyverse:v1.5.0\n\
+    \    # The list of available standard container Images\n    options:\n    - public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/rstudio-tidyverse:v1.5.0\n\
     \  # If true, hide registry and/or tag name in the image selection dropdown\n\
     \  hideRegistry: true\n  hideTag: false\n  allowCustomImage: true\n  # If true,\
     \ users can input custom images\n  # If false, users can only select from the\
@@ -82,12 +84,13 @@ data:
     Equal\"\n    #        value: \"value2\"\n    #        effect: \"NoSchedule\"\n\
     \    readOnly: false\n  shm:\n    value: true\n    readOnly: false\n  configurations:\n\
     \    # List of labels to be selected, these are the labels from PodDefaults\n\
-    \    # value:\n    #   - add-gcp-secret\n    #   - default-editor\n    value:\
+    \    # value:\n    #   - add-aws-secret\n    #   - default-editor\n    value:\
     \ []\n    readOnly: false\n"
 kind: ConfigMap
 metadata:
+  annotations: {}
   labels:
     app: jupyter-web-app
     kustomize.component: jupyter-web-app
-  name: jupyter-web-app-config-b8d2h4kk86
+  name: jupyter-web-app-config-f7t92mb8kf
   namespace: kubeflow
