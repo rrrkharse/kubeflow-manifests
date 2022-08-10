@@ -59,7 +59,6 @@ helm install kubeflow-roles charts/common/kubeflow-roles;
 ```bash
 helm install istio-1-14 charts/common/istio-1-14;
 helm install kubeflow-issuer charts/common/kubeflow-issuer;
-
 ```
 
 3. Install Kubeflow Namespace, dex, knative
