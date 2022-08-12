@@ -10,7 +10,7 @@ import os
 
 from e2e.utils.config import configure_resource_fixture
 from e2e.utils.constants import KUBEFLOW_VERSION
-from e2e.utils.utils import wait_for
+from e2e.utils.utils import wait_for,kubectl_delete, kubectl_delete_crd
 
 
 def apply_kustomize(path):
@@ -25,6 +25,10 @@ def apply_kustomize(path):
         build_retcode = subprocess.call(f"kustomize build {path} -o {tmp.name}".split())
         assert build_retcode == 0
         apply_retcode = subprocess.call(f"kubectl apply -f {tmp.name}".split())
+        # to deal with runtime crds, give it another chance to build
+        if apply_retcode == 1:
+            time.sleep(30)
+            apply_retcode = subprocess.call(f"kubectl apply -f {tmp.name}".split())
         assert apply_retcode == 0
 
 def install_helm(chart_name, path):
@@ -36,7 +40,6 @@ def install_helm(chart_name, path):
     """
 
     with tempfile.NamedTemporaryFile() as tmp:
-        print(f"Installing {chart_name}...")
         install_retcode = subprocess.call(f"helm install {chart_name} {path}".split())
         assert install_retcode == 0
 
@@ -53,18 +56,20 @@ def delete_kustomize(path):
         assert build_retcode == 0
     
         delete_retcode = subprocess.call(f"kubectl delete -f {tmp.name}".split())
-        assert delete_retcode == 0
 
-def uninstall_helm(chart_name):
+def uninstall_helm(chart_name, namespace = None):
     """
     Equivalent to:
 
     helm uninstall <chart_name>
 
     """
-   
-    uninstall_retcode = subprocess.call(f"helm uninstall {chart_name}".split())
+    if namespace: 
+        uninstall_retcode = subprocess.call(f"helm uninstall {chart_name} -n {namespace}".split())
+    else:
+        uninstall_retcode = subprocess.call(f"helm uninstall {chart_name}".split())
     assert uninstall_retcode == 0
+
 
 @pytest.fixture(scope="class")
 def configure_manifests():
@@ -104,17 +109,8 @@ def installation(
             time.sleep(5 * 60)  # wait a bit for all pods to be running
         # TODO: verify this programmatically
         if (installation_option == 'helm'):
-            preq_helm_charts = installation_path[0]
-            comp_helm_charts = installation_path[1]
 
-            for helm_chart in preq_helm_charts:
-                chart_path = helm_chart[0]
-                chart_name = helm_chart[1]
-                wait_for(lambda: install_helm(chart_name, chart_path), timeout=3 * 60)
-                time.sleep(10)
-                # wait a bit for all pods to be running
-            
-            for helm_chart in comp_helm_charts:
+            for helm_chart in installation_path:
                 chart_path = helm_chart[0]
                 chart_name = helm_chart[1]
                 wait_for(lambda: install_helm(chart_name, chart_path), timeout=3 * 60)
@@ -134,22 +130,39 @@ def installation(
         time.sleep(2 * 60)
         if (installation_option == 'kustomize'):
             delete_kustomize(installation_path)
+            kubectl_delete_crd("authrequests.dex.coreos.com")
+            kubectl_delete_crd("connectors.dex.coreos.com")
+            kubectl_delete_crd("devicerequests.dex.coreos.com")
+            kubectl_delete_crd("devicetokens.dex.coreos.com")
+            kubectl_delete_crd("oauth2clients.dex.coreos.com")
+            kubectl_delete_crd("offlinesessionses.dex.coreos.com")
+            kubectl_delete_crd("passwords.dex.coreos.com")
+            kubectl_delete_crd("refreshtokens.dex.coreos.com")
+            kubectl_delete_crd("signingkeies.dex.coreos.com")
+
         
         if (installation_option == 'helm'):
-            preq_helm_charts = installation_path[0]
-            comp_helm_charts = installation_path[1]
-            preq_helm_charts.reverse()
-            comp_helm_charts.reverse()
-            print(preq_helm_charts)
-            print(comp_helm_charts)
+            installation_path.reverse()
 
-            for helm_chart in comp_helm_charts:
+            for helm_chart in installation_path:
                 chart_name = helm_chart[1]
                 uninstall_helm(chart_name)
+                if os.path.isdir(f"{helm_chart[0]}/crds"):
+                    print(f"deleting {chart_name} crds ...")
+                    kubectl_delete(f"{helm_chart[0]}/crds")
+                    if chart_name == "dex":
+                        kubectl_delete_crd("authrequests.dex.coreos.com")
+                        kubectl_delete_crd("connectors.dex.coreos.com")
+                        kubectl_delete_crd("devicerequests.dex.coreos.com")
+                        kubectl_delete_crd("devicetokens.dex.coreos.com")
+                        kubectl_delete_crd("oauth2clients.dex.coreos.com")
+                        kubectl_delete_crd("offlinesessionses.dex.coreos.com")
+                        kubectl_delete_crd("passwords.dex.coreos.com")
+                        kubectl_delete_crd("refreshtokens.dex.coreos.com")
+                        kubectl_delete_crd("signingkeies.dex.coreos.com")
 
-            for helm_chart in preq_helm_charts:
-                chart_name = helm_chart[1]
-                uninstall_helm(chart_name)
+
+
 
     configure_resource_fixture(
         metadata, request, installation_path, "installation_path", on_create, on_delete
