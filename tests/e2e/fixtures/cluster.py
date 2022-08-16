@@ -4,12 +4,13 @@ EKS cluster fixture module
 
 import subprocess
 import pytest
+from e2e.conftest import clean_up_eks_cluster
 
 from e2e.utils.utils import rand_name
 from e2e.utils.config import configure_resource_fixture
 
 # Todo load from yaml and replace values
-def create_cluster(cluster_name, region, cluster_version="1.19"):
+def create_cluster(cluster_name, region, cluster_version="1.21"):
     cmd = []
     cmd += "eksctl create cluster".split()
     cmd += f"--name {cluster_name}".split()
@@ -17,7 +18,7 @@ def create_cluster(cluster_name, region, cluster_version="1.19"):
     cmd += f"--region {region}".split()
     cmd += "--node-type m5.xlarge".split()
     cmd += "--nodes 5".split()
-    cmd += "--nodes-min 1".split()
+    cmd += "--nodes-min 5".split()
     cmd += "--nodes-max 10".split()
     cmd += "--managed".split()
 
@@ -112,7 +113,11 @@ def cluster(metadata, region, request):
 
     def on_delete():
         name = metadata.get("cluster_name") or cluster_name
-        delete_cluster(name, region)
+        if clean_up_eks_cluster(request):
+            delete_cluster(name, region)
+        else:
+            return
+        
 
     return configure_resource_fixture(
         metadata, request, cluster_name, "cluster_name", on_create, on_delete
