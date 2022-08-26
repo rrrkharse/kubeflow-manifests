@@ -1,11 +1,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kubeflow on AWS – About</title>
-    <link>https://awslabs.github.io/kubeflow-manifests/docs/about/</link>
+    <link>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/</link>
     <description>Recent content in About on Kubeflow on AWS</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	  <atom:link href="https://awslabs.github.io/kubeflow-manifests/docs/about/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -15,10 +15,10 @@
     
     <item>
       <title>Docs: AWS Features for Kubeflow</title>
-      <link>https://awslabs.github.io/kubeflow-manifests/docs/about/features/</link>
+      <link>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/features/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://awslabs.github.io/kubeflow-manifests/docs/about/features/</guid>
+      <guid>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/features/</guid>
       <description>
         
         
@@ -54,10 +54,10 @@
     
     <item>
       <title>Docs: Releases and Versioning</title>
-      <link>https://awslabs.github.io/kubeflow-manifests/docs/about/releases/</link>
+      <link>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/releases/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://awslabs.github.io/kubeflow-manifests/docs/about/releases/</guid>
+      <guid>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/releases/</guid>
       <description>
         
         
@@ -80,10 +80,10 @@
     
     <item>
       <title>Docs: Amazon EKS and Kubeflow Compatibility</title>
-      <link>https://awslabs.github.io/kubeflow-manifests/docs/about/eks-compatibility/</link>
+      <link>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/eks-compatibility/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://awslabs.github.io/kubeflow-manifests/docs/about/eks-compatibility/</guid>
+      <guid>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/eks-compatibility/</guid>
       <description>
         
         
@@ -98,6 +98,10 @@
       &lt;/tr&gt;
     &lt;/thead&gt;
     &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;1.22&lt;/td&gt;
+        &lt;td&gt;&lt;b&gt;Incompatible&lt;/b&gt;&lt;/td&gt;
+      &lt;/tr&gt;
       &lt;tr&gt;
         &lt;td&gt;1.21&lt;/td&gt;
         &lt;td&gt;&lt;b&gt;Compatible&lt;/b&gt;&lt;/td&gt;
@@ -117,21 +121,16 @@
 &lt;li&gt;&lt;strong&gt;Incompatible&lt;/strong&gt;: the combination is not known to work together&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Compatible&lt;/strong&gt;: all Kubeflow features have been tested and verified for the EKS Kubernetes version&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;kubeflow-v15-support&#34;&gt;Kubeflow v1.5 Support&lt;/h2&gt;
-&lt;p&gt;Support for Kubeflow-v1.5 is in active development. You can track the following issue to stay up to date on progress:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/awslabs/kubeflow-manifests/issues/91&#34;&gt;v1.5 tracking issue&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 
       </description>
     </item>
     
     <item>
       <title>Docs: Security</title>
-      <link>https://awslabs.github.io/kubeflow-manifests/docs/about/security/</link>
+      <link>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/security/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://awslabs.github.io/kubeflow-manifests/docs/about/security/</guid>
+      <guid>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/security/</guid>
       <description>
         
         
@@ -145,7 +144,7 @@
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html&#34;&gt;Security best practices for Amazon Simple Storage Service (S3)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/security.html&#34;&gt;Security in Amazon Route53&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/acm/latest/userguide/security.html&#34;&gt;Security in Amazon Certificate Manager (ACM)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html&#34;&gt;Security best practices for Amazon Cognito user pools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/cognito/latest/developerguide/managing-security.html&#34;&gt;Security best practices for Amazon Cognito user pools&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/security.html&#34;&gt;Security in Amazon Elastic Load Balancing (ELB)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -154,10 +153,10 @@
     
     <item>
       <title>Docs: Usage Tracking</title>
-      <link>https://awslabs.github.io/kubeflow-manifests/docs/about/usage-tracking/</link>
+      <link>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/usage-tracking/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://awslabs.github.io/kubeflow-manifests/docs/about/usage-tracking/</guid>
+      <guid>https://rrrkharse.github.io/kubeflow-manifests/main/docs/about/usage-tracking/</guid>
       <description>
         
         
