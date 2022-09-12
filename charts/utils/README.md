@@ -1,7 +1,7 @@
 ## How to run `split_kfp_for_terraform_helm.py`
 
 ```sh
-~/kf/helm-1-6-official/kubeflow-manifests/charts helm-chart-vanilla-v1.6.0
+~/kf/helm-1-6-official/kubeflow-manifests/charts/utils helm-chart-vanilla-v1.6.0
 $ python3 split_kfp_for_terraform_helm.py --help
 usage: split_kfp_for_terraform_helm.py [-h] [--helm-chart-folder HELM_CHART_FOLDER] [--overwrite OVERWRITE]
 
