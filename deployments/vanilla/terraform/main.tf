@@ -87,6 +87,8 @@ module "eks_blueprints_kubernetes_addons" {
   enable_amazon_eks_coredns    = true
   enable_amazon_eks_kube_proxy = true
 
+  # EKS Blueprints Add-ons
+  enable_cert_manager = true
 
   tags = local.tags
 
@@ -109,6 +111,7 @@ module "kubeflow_components" {
 
   kf_helm_repo_path = local.kf_helm_repo_path
   addon_context = module.eks_blueprints_outputs.addon_context
+  enable_aws_telemetry = var.enable_aws_telemetry
 }
 
 #---------------------------------------------------------------

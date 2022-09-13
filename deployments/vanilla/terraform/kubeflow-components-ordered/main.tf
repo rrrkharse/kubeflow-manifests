@@ -9,15 +9,6 @@ resource "kubernetes_namespace" "kubeflow" {
   }
 }
 
-module "kubeflow_cert_manager" {
-  source            = "../../../../iaac/terraform/kubeflow-components/cert-manager"
-  helm_config = {
-    chart = "${var.kf_helm_repo_path}/charts/common/cert-manager"
-  }
-
-  addon_context = var.addon_context
-}
-
 module "kubeflow_issuer" {
   source            = "../../../../iaac/terraform/kubeflow-components/kubeflow-issuer"
   helm_config = {
@@ -25,7 +16,7 @@ module "kubeflow_issuer" {
   }
 
   addon_context = var.addon_context
-  depends_on = [module.kubeflow_cert_manager]
+  # depends_on = [module.kubeflow_cert_manager]
 }
 
 module "kubeflow_istio" {
@@ -103,8 +94,8 @@ module "kubeflow_istio_resources" {
 module "kubeflow_pipelines" {
   source            = "../../../../iaac/terraform/kubeflow-components/kubeflow-pipelines"
   helm_config = {
-    chart_1 = "${var.kf_helm_repo_path}/charts/apps/kubeflow-pipelines-part-1"
-    chart_2 = "${var.kf_helm_repo_path}/charts/apps/kubeflow-pipelines-part-2"
+    chart_1 = "${var.kf_helm_repo_path}/charts/apps/kubeflow-pipelines/vanilla-part-1"
+    chart_2 = "${var.kf_helm_repo_path}/charts/apps/kubeflow-pipelines/vanilla-part-2"
   }  
   addon_context = var.addon_context
   depends_on = [module.kubeflow_istio_resources]
@@ -131,7 +122,7 @@ module "kubeflow_models_web_app" {
 module "kubeflow_katib" {
   source            = "../../../../iaac/terraform/kubeflow-components/katib"
   helm_config = {
-    chart = "${var.kf_helm_repo_path}/charts/apps/katib"
+    chart = "${var.kf_helm_repo_path}/charts/apps/katib/vanilla"
   }  
   addon_context = var.addon_context
   depends_on = [module.kubeflow_models_web_app]
@@ -219,6 +210,7 @@ module "kubeflow_training_operator" {
 }
 
 module "kubeflow_aws_telemetry" {
+  count = var.enable_aws_telemetry ? 1 : 0
   source            = "../../../../iaac/terraform/kubeflow-components/aws-telemetry"
   helm_config = {
     chart = "${var.kf_helm_repo_path}/charts/common/aws-telemetry"
@@ -234,4 +226,9 @@ module "kubeflow_user_namespace" {
   }  
   addon_context = var.addon_context
   depends_on = [module.kubeflow_aws_telemetry]
+}
+
+module "ack_sagemaker" {
+  source            = "../../../../iaac/terraform/kubernetes-addons/amazon-controller-for-k8s-sagemaker"
+  addon_context = var.addon_context
 }

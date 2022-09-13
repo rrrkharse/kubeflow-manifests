@@ -19,3 +19,9 @@ variable "addon_context" {
     irsa_iam_permissions_boundary  = string
   })
 }
+
+variable "enable_aws_telemetry" {
+  description = "Enable AWS telemetry addon to provide diagnostic data to AWS"
+  type = bool
+  default = true
+}

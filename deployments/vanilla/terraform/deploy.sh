@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git -C kubeflow-helm pull || git clone --branch helm-installation-bugbash-1.6 https://github.com/rrrkharse/kubeflow-manifests.git kubeflow-helm
+git -C kubeflow-helm pull || git clone --branch helm-chart-vanilla-v1.6.0 https://github.com/rrrkharse/kubeflow-manifests.git kubeflow-helm
 export TF_VAR_kf_helm_repo_path=$PWD/kubeflow-helm
 
 

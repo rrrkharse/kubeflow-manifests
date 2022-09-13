@@ -4,24 +4,6 @@ variable "helm_config" {
   description = "todo replace"
 }
 
-variable "manage_via_gitops" {
-  type        = bool
-  default     = false
-  description = "Determines if the add-on should be managed via GitOps."
-}
-
-variable "rds_secret" {
-  type        = string
-  default     = null
-  description = "Name of the rds secret"
-}
-
-variable "s3_secret" {
-  type        = string
-  default     = null
-  description = "Name of the s3 secret"
-}
-
 variable "addon_context" {
   type = object({
     aws_caller_identity_account_id = string

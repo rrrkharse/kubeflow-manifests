@@ -17,6 +17,12 @@ variable "eks_version" {
   default     = "1.22"
 }
 
+variable "enable_aws_telemetry" {
+  description = "Enable AWS telemetry addon to provide diagnostic data to AWS"
+  type = bool
+  default = true
+}
+
 variable "kf_helm_repo_path" {
   description = "Full path to the location of the helm folder to install from for KF 1.6"
   type        = string
