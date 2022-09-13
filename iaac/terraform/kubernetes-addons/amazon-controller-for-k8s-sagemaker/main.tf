@@ -27,31 +27,10 @@ module "helm_addon" {
       value = var.addon_context.aws_region_name
     },
     {
-      # name = "serviceAccount.annotations"
       name = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
       value = module.irsa.irsa_iam_role_arn
-      # value = {
-      #   "eks.amazonaws.com/role-arn": module.irsa.irsa_iam_role_arn
-      # }
     }
   ]
-  # helm_config       = merge(
-  #   local.helm_config,
-  #   {
-  #     set = concat([
-  #       {
-  #         name = "aws.region" 
-  #         value = var.addon_context.aws_region_name
-  #       },
-  #       {
-  #         name = "serviceAccount.annotations"
-  #         value = {
-  #           "eks.amazonaws.com/role-arn": module.irsa.irsa_iam_role_arn
-  #         }
-  #       }
-  #     ], try(local.helm_config["set"], []))
-  #   }
-  # )
 
   addon_context     = var.addon_context
 }

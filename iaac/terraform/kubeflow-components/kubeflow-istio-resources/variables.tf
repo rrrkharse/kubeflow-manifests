@@ -1,13 +1,6 @@
 variable "helm_config" {
   type        = any
   default     = {}
-  description = "todo replace"
-}
-
-variable "manage_via_gitops" {
-  type        = bool
-  default     = false
-  description = "Determines if the add-on should be managed via GitOps."
 }
 
 variable "addon_context" {

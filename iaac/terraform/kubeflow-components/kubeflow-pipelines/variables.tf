@@ -1,9 +1,7 @@
 variable "helm_config" {
   type        = any
   default     = {}
-  description = "todo replace"
 }
-
 variable rds_db_host {
   type = string
   default = ""
@@ -14,11 +12,6 @@ variable s3_bucket_name {
   default = ""
 }
 
-variable "manage_via_gitops" {
-  type        = bool
-  default     = false
-  description = "Determines if the add-on should be managed via GitOps."
-}
 
 variable "addon_context" {
   type = object({

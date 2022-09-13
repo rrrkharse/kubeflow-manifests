@@ -1,7 +1,6 @@
 variable "helm_config" {
   type        = any
   default     = {}
-  description = "todo replace"
 }
 
 variable "addon_context" {

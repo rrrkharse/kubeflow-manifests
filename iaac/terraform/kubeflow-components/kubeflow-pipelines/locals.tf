@@ -11,11 +11,8 @@ locals {
 
   default_helm_config = {
     name        = local.name
-    chart_1       = "/Users/rkharse/kf/jim-helm/kubeflow-manifests/deployments/vanilla/helm/kubeflow-pipelines-copy"
-    chart_2       = "/Users/rkharse/kf/jim-helm/kubeflow-manifests/deployments/vanilla/helm/kubeflow-pipelines-copy"
     version     = "0.1.0"
     namespace   = "default"
-    description = "todo replace"
     values      = []
     timeout     = "240"
   }
@@ -45,7 +42,4 @@ locals {
   )
 
 
-  argocd_gitops_config = {
-    enable = true
-  }
 }

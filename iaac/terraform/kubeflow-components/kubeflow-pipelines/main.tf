@@ -1,13 +1,11 @@
 module "helm_addon_1" {
   source            = "github.com/aws-ia/terraform-aws-eks-blueprints/modules/kubernetes-addons/helm-addon"
-  manage_via_gitops = var.manage_via_gitops
   helm_config       = local.helm_config_1
   addon_context     = var.addon_context
 }
 
 module "helm_addon_2" {
   source            = "github.com/aws-ia/terraform-aws-eks-blueprints/modules/kubernetes-addons/helm-addon"
-  manage_via_gitops = var.manage_via_gitops
   helm_config       = local.helm_config_2
   addon_context     = var.addon_context
 
