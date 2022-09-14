@@ -6,7 +6,7 @@ locals {
     version     = "0.1.0"
     namespace   = "default"
     values      = []
-    timeout     = "240"
+    timeout     = "600"
   }
 
   helm_config = merge(

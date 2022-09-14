@@ -16,11 +16,11 @@ module "kubeflow_issuer" {
   }
 
   addon_context = var.addon_context
-  # depends_on = [module.kubeflow_cert_manager]
+  depends_on = [kubernetes_namespace.kubeflow]
 }
 
 module "kubeflow_istio" {
-  source            = "../../../../iaac/terraform/kubeflow-components/istio-1-11"
+  source            = "../../../../iaac/terraform/kubeflow-components/istio"
   helm_config = {
     chart = "${var.kf_helm_repo_path}/charts/common/istio-1-14"
   }
