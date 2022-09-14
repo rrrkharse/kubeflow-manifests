@@ -140,7 +140,7 @@ module "kubeflow_central_dashboard" {
 module "kubeflow_admission_webhook" {
   source            = "../../../../iaac/terraform/kubeflow-components/admission-webhook"
   helm_config = {
-    chart = "${var.kf_helm_repo_path}/charts/common/admission-webhook"
+    chart = "${var.kf_helm_repo_path}/charts/apps/admission-webhook"
   }  
   addon_context = var.addon_context
   depends_on = [module.kubeflow_central_dashboard]
@@ -167,7 +167,7 @@ module "kubeflow_jupyter_web_app" {
 module "kubeflow_profiles_and_kfam" {
   source            = "../../../../iaac/terraform/kubeflow-components/profiles-and-kfam"
   helm_config = {
-    chart = "${var.kf_helm_repo_path}/charts/common/profiles-and-kfam"
+    chart = "${var.kf_helm_repo_path}/charts/apps/profiles-and-kfam"
   }  
   addon_context = var.addon_context
   depends_on = [module.kubeflow_jupyter_web_app]
