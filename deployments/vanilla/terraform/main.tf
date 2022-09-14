@@ -1,3 +1,21 @@
+locals {
+  name = "vanilla-kubeflow"
+  cluster_name = coalesce(var.cluster_name, local.name)
+  region       = var.cluster_region
+  eks_version = var.eks_version
+
+  vpc_cidr = "10.0.0.0/16"
+  az_count = local.region == "us-west-1" ? 2 : 3
+  azs      = slice(data.aws_availability_zones.available.names, 0, local.az_count)
+
+  tags = {
+    Blueprint  = local.name
+    GithubRepo = "github.com/awslabs/kubeflow-manifests"
+  }
+
+  kf_helm_repo_path = var.kf_helm_repo_path
+}
+
 provider "aws" {
   region = local.region
 }
@@ -30,29 +48,11 @@ provider "helm" {
 
 data "aws_availability_zones" "available" {}
 
-locals {
-  name = "vanilla-kubeflow"
-  cluster_name = coalesce(var.cluster_name, local.name)
-  region       = var.cluster_region
-  eks_version = var.eks_version
-
-  vpc_cidr = "10.0.0.0/16"
-  az_count = local.region == "us-west-1" ? 2 : 3
-  azs      = slice(data.aws_availability_zones.available.names, 0, local.az_count)
-
-  tags = {
-    Blueprint  = local.name
-    GithubRepo = "github.com/awslabs/kubeflow-manifests"
-  }
-
-  kf_helm_repo_path = var.kf_helm_repo_path
-}
-
 #---------------------------------------------------------------
 # EKS Blueprints
 #---------------------------------------------------------------
 module "eks_blueprints" {
-  source = "github.com/aws-ia/terraform-aws-eks-blueprints"
+  source = "github.com/aws-ia/terraform-aws-eks-blueprints?ref=v4.9.0"
 
   cluster_name    = local.cluster_name
   cluster_version = local.eks_version
@@ -75,7 +75,7 @@ module "eks_blueprints" {
 }
 
 module "eks_blueprints_kubernetes_addons" {
-  source = "github.com/aws-ia/terraform-aws-eks-blueprints/modules/kubernetes-addons"
+  source = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons?ref=v4.9.0"
 
   eks_cluster_id       = module.eks_blueprints.eks_cluster_id
   eks_cluster_endpoint = module.eks_blueprints.eks_cluster_endpoint
@@ -119,7 +119,7 @@ module "kubeflow_components" {
 #---------------------------------------------------------------
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 3.0"
+  version = "3.14.4"
 
   name = local.name
   cidr = local.vpc_cidr

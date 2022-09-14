@@ -5,7 +5,7 @@ resource "aws_iam_policy" "profile_controller_policy" {
 }
 
 module "irsa" {
-  source            = "github.com/aws-ia/terraform-aws-eks-blueprints/modules/irsa"
+  source            = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/irsa?ref=v4.9.0"
   kubernetes_namespace = "kubeflow"
   create_kubernetes_namespace = false
   create_kubernetes_service_account = false
@@ -35,7 +35,7 @@ resource "kubernetes_service_account_v1" "profile_controller_sa" {
 }
 
 module "helm_addon" {
-  source            = "github.com/aws-ia/terraform-aws-eks-blueprints/modules/kubernetes-addons/helm-addon"
+  source            = "github.com/aws-ia/terraform-aws-eks-blueprints//modules/kubernetes-addons/helm-addon?ref=v4.9.0"
   helm_config       = local.helm_config
   addon_context     = var.addon_context
 
