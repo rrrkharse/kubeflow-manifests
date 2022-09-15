@@ -8,8 +8,7 @@ on:
       - iaac/terraform/kubernetes-addons/**
       - iaac/terraform/utils/**
     branches:
-      # - main
-      - terraform # todo: revert back to main
+      - main
 
   workflow_dispatch:
 
