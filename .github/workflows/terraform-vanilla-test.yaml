@@ -1,0 +1,53 @@
+name: Terraform Vanilla Test
+on:
+  # Run on PR configuration
+  push:
+    paths:
+      - deployments/vanilla/terraform/**
+      - iaac/terraform/kubeflow-components/**
+      - iaac/terraform/kubernetes-addons/**
+      - iaac/terraform/utils/**
+    branches:
+      - main
+
+  workflow_dispatch:
+
+# Ensure that only a single workflow which deploy vanilla related stack will be run at a time. TODO: enable parallel runs
+concurrency: vanilla
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # environment enables protection rules (e.g. need approval to run the workflow)
+    environment: gh-actions-test
+    permissions:
+      # needed to interact with GitHub's OIDC Token endpoint
+      id-token: write
+      # needed to checkout repository
+      contents: read
+    env:
+      TF_VAR_cluster_name: testpool-${{ github.run_id }}-${{ github.run_attempt }}
+      TF_VAR_cluster_region: ${{ secrets.AWS_REGION }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials from Test account
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: ${{ secrets.PR_BUILD_ROLE }}
+        role-session-name: prrolesession-${{ github.run_id }}-${{ github.run_attempt }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Install Terraform
+      uses: hashicorp/setup-terraform@v2
+    
+    - name: Plan and apply terraform
+      run: |
+        cd deployments/vanilla/terraform
+        bash deploy.sh
+    - name: Clean up terraform
+      if: success() || failure()
+      run: |
+        cd deployments/vanilla/terraform
+        bash destroy.sh
