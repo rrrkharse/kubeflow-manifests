@@ -49,11 +49,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/cognito/manifest/guide-automated/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2022-09-21T17:12:07-07:00" /><meta property="og:site_name" content="Kubeflow on AWS" />
+<meta property="article:modified_time" content="2022-09-22T19:23:34-07:00" /><meta property="og:site_name" content="Kubeflow on AWS" />
 
 <meta itemprop="name" content="Automated Deployment Guide">
 <meta itemprop="description" content="Deploying Kubeflow with AWS Cognito as identity provider using setup scripts">
-<meta itemprop="dateModified" content="2022-09-21T17:12:07-07:00" />
+<meta itemprop="dateModified" content="2022-09-22T19:23:34-07:00" />
 <meta itemprop="wordCount" content="635">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Automated Deployment Guide"/>
@@ -62,8 +62,8 @@
 
 
 
-<link rel="preload" href="/kubeflow-manifests/main/scss/main.min.da9a6963d4efb20122a519bd217b1a074d0a90730980b7ca4bfa051e80c00d93.css" as="style">
-<link href="/kubeflow-manifests/main/scss/main.min.da9a6963d4efb20122a519bd217b1a074d0a90730980b7ca4bfa051e80c00d93.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/kubeflow-manifests/main/scss/main.min.cfd7574257326fddbc6f33f260c0bda4c6d74394ebf2531282625a18d0a19e75.css" as="style">
+<link href="/kubeflow-manifests/main/scss/main.min.cfd7574257326fddbc6f33f260c0bda4c6d74394ebf2531282625a18d0a19e75.css" rel="stylesheet" integrity="">
 
 <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -119,7 +119,9 @@
 </a>
 <div class="dropdown-menu dropdown-menu-md-right dropdown-menu-lg-left" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/docs">latest</a>
+	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/docs">latest - preview</a>
+	
+	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/release-v1.6.0-aws-b1.0.0/docs">v1.6 - preview</a>
 	
 	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/release-v1.5.1-aws-b1.0.2/docs">v1.5</a>
 	
@@ -382,8 +384,11 @@
 
 <div class="td-toc"><nav id="TableOfContents">
   <ul>
-    <li><a href="#prerequisites">Prerequisites</a></li>
-    <li><a href="#create-required-resources-and-deploy-kubeflow">Create required resources and deploy Kubeflow</a></li>
+    <li><a href="#10-prerequisites">1.0 Prerequisites</a></li>
+    <li><a href="#20-create-required-resources">2.0 Create required resources</a></li>
+    <li><a href="#30-install-kubeflow">3.0 Install Kubeflow</a></li>
+    <li><a href="#40-updating-the-domain-with-alb-address">4.0 Updating the domain with ALB address</a></li>
+    <li><a href="#50-connect-to-central-dashboard">5.0 Connect to central dashboard</a></li>
     <li><a href="#uninstall-kubeflow">Uninstall Kubeflow</a></li>
   </ul>
 </nav></div>
@@ -457,12 +462,11 @@
 <p>Note: Helm installation option is still in preview.</p>
 </blockquote>
 <p>This guide describes how to deploy Kubeflow on AWS EKS using Cognito as identity provider. Kubeflow uses Istio to manage internal traffic. In this guide we will be creating an Ingress to manage external traffic to the Kubernetes services and an Application Load Balancer (ALB) to provide public DNS and enable TLS authentication at the load balancer. We will also be creating a custom domain to host Kubeflow since certificates (needed for TLS) for ALB&rsquo;s public DNS names are not supported.</p>
-<h2 id="prerequisites">Prerequisites</h2>
+<h2 id="10-prerequisites">1.0 Prerequisites</h2>
 <p>This guide assumes you have Python 3.8 installed and that you have completed the <a href="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/prerequisites/">prerequisites</a>.</p>
-<h2 id="create-required-resources-and-deploy-kubeflow">Create required resources and deploy Kubeflow</h2>
+<h2 id="20-create-required-resources">2.0 Create required resources</h2>
 <ol>
-<li>
-<p>The following steps automate <a href="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/cognito/manifest/guide/#10-custom-domain-and-certificates">section 1.0(Custom domain and certificates)</a> (creating a custom domain to host Kubeflow and TLS certificates for the domain), <a href="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/cognito/manifest/guide/#20-cognito-user-pool">section 2.0(Cognito user pool)</a> (creating a Cognito Userpool used for user authentication) and<a href="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/cognito/manifest/guide/#30-configure-ingress">section 3.0(Configure Ingress)</a> (configuring ingress and load balancer controller manifests) of the cognito guide.</p>
+<li>The following steps automate <a href="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/cognito/manifest/guide/#10-custom-domain-and-certificates">section 1.0 (Custom domain and certificates)</a> (creating a custom domain to host Kubeflow and TLS certificates for the domain), <a href="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/cognito/manifest/guide/#20-cognito-user-pool">section 2.0 (Cognito user pool)</a> (creating a Cognito Userpool used for user authentication) and<a href="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/cognito/manifest/guide/#30-configure-ingress">section 3.0 (Configure Ingress)</a> (configuring ingress and load balancer controller manifests) of the cognito guide.
 <ol>
 <li>Install dependencies for the scripts
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pip install -r tests/e2e/requirements.txt
@@ -538,8 +542,10 @@
 </li>
 </ol>
 </li>
-<li>
-<p>Install Kubeflow using the following command:
+</ol>
+<h2 id="30-install-kubeflow">3.0 Install Kubeflow</h2>
+<ol>
+<li>Install Kubeflow using the following command:
 
 
 
@@ -596,10 +602,9 @@
         id="tabs-5-1" role="tabpanel" aria-labelled-by="tabs-5-1-tab"><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">make deploy-kubeflow INSTALLATION_OPTION=helm DEPLOYMENT_OPTION=cognito</span></span></span></code></pre></div></div>
   
 </div>
-</p>
 </li>
-<li>
-<p>Updating the domain with ALB address</p>
+</ol>
+<h2 id="40-updating-the-domain-with-alb-address">4.0 Updating the domain with ALB address</h2>
 <ol>
 <li>Check if ALB is provisioned. It takes around 3-5 minutes
 <ol>
@@ -634,16 +639,11 @@
 </ol>
 </li>
 </ol>
-</li>
-<li>
-<p>Follow the rest of the cognito guide from <a href="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/cognito/manifest/guide/#60-connecting-to-central-dashboard">section 6.0(Connecting to central dashboard)</a> to:</p>
-<ol>
-<li>Create a user in Cognito user pool</li>
-<li>Create a profile for the user from the user pool</li>
-<li>Connect to the central dashboard</li>
-</ol>
-</li>
-</ol>
+<h2 id="50-connect-to-central-dashboard">5.0 Connect to central dashboard</h2>
+<p><a href="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/cognito/manifest/guide/#60-connecting-to-central-dashboard">section 6.0(Connecting to central dashboard)</a> to:
+1. Create a user in Cognito user pool
+1. Create a profile for the user from the user pool
+1. Connect to the central dashboard</p>
 <h2 id="uninstall-kubeflow">Uninstall Kubeflow</h2>
 <blockquote>
 <p>Note: Delete all the resources you might have created in your profile namespaces before running these steps.</p>
@@ -652,7 +652,6 @@
 <li>
 <p>Run the following commands to delete the profiles, ingress and corresponding ingress managed load balancer</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> kubectl delete profiles --all
-</span></span><span class="line"><span class="cl"> kubectl delete ingress -n istio-system istio-ingress
 </span></span></code></pre></div></li>
 <li>
 <p>Delete the kubeflow deployment</p>
@@ -767,7 +766,7 @@
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified September 21, 2022: <a href="https://github.com/awslabs/kubeflow-manifests//commit/af297e904337db092dc9cecdd227b00e22639128">Update terraform-cognito-test.yaml (#418) (af297e9)</a>
+  Last modified September 22, 2022: <a href="https://github.com/awslabs/kubeflow-manifests//commit/58560321e1be16fc1c8dc0cc4e8e4f7637a7cf16">Add S3 bucket cleanup to the KFP canary test (#435) (5856032)</a>
 </div>
 
 </div>
