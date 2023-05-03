@@ -28,7 +28,7 @@
       "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
       "dateModified" : "0001-01-01 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/rrrkharse.github.io\/kubeflow-manifests\/main\/docs\/deployment\/cognito\/manifest\/guide\/",
-      "wordCount" : "1356",
+      "wordCount" : "1370",
       "keywords" : [ "Kubeflow" ]
   }
   </script>
@@ -49,12 +49,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/cognito/manifest/guide/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2023-04-19T15:04:44-07:00" /><meta property="og:site_name" content="Kubeflow on AWS" />
+<meta property="article:modified_time" content="2023-05-03T12:18:57-07:00" /><meta property="og:site_name" content="Kubeflow on AWS" />
 
 <meta itemprop="name" content="Manual Deployment Guide">
 <meta itemprop="description" content="Deploying Kubeflow with AWS Cognito as identity provider using Kustomize or Helm">
-<meta itemprop="dateModified" content="2023-04-19T15:04:44-07:00" />
-<meta itemprop="wordCount" content="1356">
+<meta itemprop="dateModified" content="2023-05-03T12:18:57-07:00" />
+<meta itemprop="wordCount" content="1370">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Manual Deployment Guide"/>
 <meta name="twitter:description" content="Deploying Kubeflow with AWS Cognito as identity provider using Kustomize or Helm"/>
@@ -137,7 +137,9 @@
 	
 	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/docs">latest</a>
 	
-	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/release-v1.6.1-aws-b1.0.0/docs">v1.6</a>
+	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/release-v1.7.0-aws-b1.0.0/docs">v1.7</a>
+	
+	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/release-v1.6.1-aws-b1.0.2/docs">v1.6</a>
 	
 	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/release-v1.5.1-aws-b1.0.2/docs">v1.5</a>
 	
@@ -290,6 +292,10 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-kubeflow-manifestsmaindocsdeploymentconnect-kubeflow-dashboard-li">
   <input type="checkbox" id="m-kubeflow-manifestsmaindocsdeploymentconnect-kubeflow-dashboard-check"/>
   <label for="m-kubeflow-manifestsmaindocsdeploymentconnect-kubeflow-dashboard-check"><a href="/kubeflow-manifests/main/docs/deployment/connect-kubeflow-dashboard/" class="align-left pl-0  td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsmaindocsdeploymentconnect-kubeflow-dashboard"><span class="">Connect to your Kubeflow Dashboard</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-kubeflow-manifestsmaindocsdeploymentcreate-profiles-with-iam-role-li">
+  <input type="checkbox" id="m-kubeflow-manifestsmaindocsdeploymentcreate-profiles-with-iam-role-check"/>
+  <label for="m-kubeflow-manifestsmaindocsdeploymentcreate-profiles-with-iam-role-check"><a href="/kubeflow-manifests/main/docs/deployment/create-profiles-with-iam-role/" class="align-left pl-0  td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsmaindocsdeploymentcreate-profiles-with-iam-role"><span class="">Create Profiles with IAM role</span></a></label>
   
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-kubeflow-manifestsmaindocsdeploymentconfigure-notebook-culling-li">
   <input type="checkbox" id="m-kubeflow-manifestsmaindocsdeploymentconfigure-notebook-culling-check"/>
@@ -532,7 +538,7 @@
 <p><img src="https://raw.githubusercontent.com/awslabs/kubeflow-manifests/main/website/content/en/docs/images/cognito/cognito-email-required.png" alt="cognito-email-required"></p>
 </li>
 <li>
-<p>On the Policies page, select <code>Only allow administrators to create users</code> under <code>Do you want to allow users to sign themselves up?</code> and save changes. This step is optional but is recommended to have strict control over the users.</p>
+<p>On the Configure sign-up experience page, unselect <code>Enable self-registration</code> under <code>Self-service sign-up?</code> and save changes. This step is optional but is recommended to have strict control over the users.</p>
 </li>
 <li>
 <p>Click on <code>Create pool</code> to create the user pool.</p>
@@ -542,7 +548,7 @@
 <p><img src="https://raw.githubusercontent.com/awslabs/kubeflow-manifests/main/website/content/en/docs/images/cognito/cognito-app-client-id.png" alt="cognito-app-client-id"></p>
 </li>
 <li>
-<p>In the <code>App client settings</code>, select <code>Authorization code grant</code> flow under OAuth-2.0 and check <code>email</code>, <code>openid</code>, <code>aws.cognito.signin.user.admin</code> and <code>profile</code> scopes.
+<p>In the <code>App client edit the Hosted UI</code>, select <code>Authorization code grant</code> flow under OAuth-2.0 and check <code>email</code>, <code>openid</code>, <code>aws.cognito.signin.user.admin</code> and <code>profile</code> scopes.
 Check also <code>Enabled Identity Providers</code>.</p>
 <ul>
 <li>
@@ -551,6 +557,7 @@ Check also <code>Enabled Identity Providers</code>.</p>
 <li>
 <p>Substitute <code>example.com</code> in this URL - <code>https://kubeflow.platform.example.com</code> with your domain and use it as the Sign out URL(s).</p>
 <p><img src="https://raw.githubusercontent.com/awslabs/kubeflow-manifests/main/website/content/en/docs/images/cognito/cognito-app-client-settings.png" alt="cognito-app-client-settings"></p>
+<p><img src="https://raw.githubusercontent.com/awslabs/kubeflow-manifests/main/website/content/en/docs/images/cognito/cognito-app-client-settings-oidc.png" alt="cognito-app-client-settings"></p>
 </li>
 </ul>
 </li>
@@ -863,13 +870,14 @@ Check also <code>Enabled Identity Providers</code>.</p>
 <p>The central dashboard should now be available at <code>https://kubeflow.platform.example.com</code>.</p>
 <p>Before connecting to the dashboard:</p>
 <ul>
-<li>
-<p>Go to the Cognito console and create some users in <code>Users and groups</code>. These are the users who will log in to the central dashboard.
-<img src="https://raw.githubusercontent.com/awslabs/kubeflow-manifests/main/website/content/en/docs/images/cognito/cognito-user-pool-created.png" alt="cognito-user-pool-created"></p>
+<li>Go to the Cognito console and create some users in <code>Users and groups</code>. These are the users who will log in to the central dashboard.
+<ul>
+<li>Create a user with email address <code>user@example.com</code>. This user and email address come preconfigured and have a Profile created by default.
+<img src="https://raw.githubusercontent.com/awslabs/kubeflow-manifests/main/website/content/en/docs/images/cognito/cognito-user-pool-created.png" alt="cognito-user-pool-created"></li>
+</ul>
 </li>
-<li>
-<p>Create a Profile for a user by following the steps in the <a href="https://www.kubeflow.org/docs/components/multi-tenancy/getting-started/#manual-profile-creation">Manual Profile Creation</a>.
-The following is a Profile example for reference:</p>
+<li>Create a Profile for a user by following the steps in the <a href="https://www.kubeflow.org/docs/components/multi-tenancy/getting-started/#manual-profile-creation">Manual Profile Creation</a>.
+The following is a Profile example for reference:
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apiVersion: kubeflow.org/v1beta1
 </span></span><span class="line"><span class="cl">kind: Profile
 </span></span><span class="line"><span class="cl">metadata:
@@ -899,7 +907,7 @@ Check if the DNS entry propogated with the <a href="https://toolbox.googleapps.c
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified April 19, 2023: <a href="https://github.com/awslabs/kubeflow-manifests//commit/e8bf3f4812b5e366905cb0bad278316c9e05bceb">Pipeline S3 config update (#689) (e8bf3f4)</a>
+  Last modified May 3, 2023: <a href="https://github.com/awslabs/kubeflow-manifests//commit/fb5d82f6f3835728cf7d01369b6098a7b9492836">Fix profiles with iam docs  (#722) (fb5d82f)</a>
 </div>
 
 </div>

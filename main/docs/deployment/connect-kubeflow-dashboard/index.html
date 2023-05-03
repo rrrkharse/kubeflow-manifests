@@ -28,7 +28,7 @@
       "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
       "dateModified" : "0001-01-01 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/rrrkharse.github.io\/kubeflow-manifests\/main\/docs\/deployment\/connect-kubeflow-dashboard\/",
-      "wordCount" : "294",
+      "wordCount" : "342",
       "keywords" : [ "Kubeflow" ]
   }
   </script>
@@ -49,12 +49,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://rrrkharse.github.io/kubeflow-manifests/main/docs/deployment/connect-kubeflow-dashboard/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2023-04-19T15:04:44-07:00" /><meta property="og:site_name" content="Kubeflow on AWS" />
+<meta property="article:modified_time" content="2023-05-03T12:18:57-07:00" /><meta property="og:site_name" content="Kubeflow on AWS" />
 
 <meta itemprop="name" content="Connect to your Kubeflow Dashboard">
 <meta itemprop="description" content="Start experimenting and running your end-to-end ML workflows with Kubeflow on AWS">
-<meta itemprop="dateModified" content="2023-04-19T15:04:44-07:00" />
-<meta itemprop="wordCount" content="294">
+<meta itemprop="dateModified" content="2023-05-03T12:18:57-07:00" />
+<meta itemprop="wordCount" content="342">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Connect to your Kubeflow Dashboard"/>
 <meta name="twitter:description" content="Start experimenting and running your end-to-end ML workflows with Kubeflow on AWS"/>
@@ -137,7 +137,9 @@
 	
 	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/docs">latest</a>
 	
-	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/release-v1.6.1-aws-b1.0.0/docs">v1.6</a>
+	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/release-v1.7.0-aws-b1.0.0/docs">v1.7</a>
+	
+	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/release-v1.6.1-aws-b1.0.2/docs">v1.6</a>
 	
 	<a class="dropdown-item" href="https://awslabs.github.io/kubeflow-manifests/release-v1.5.1-aws-b1.0.2/docs">v1.5</a>
 	
@@ -290,6 +292,10 @@
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-kubeflow-manifestsmaindocsdeploymentconnect-kubeflow-dashboard-li">
   <input type="checkbox" id="m-kubeflow-manifestsmaindocsdeploymentconnect-kubeflow-dashboard-check" checked/>
   <label for="m-kubeflow-manifestsmaindocsdeploymentconnect-kubeflow-dashboard-check"><a href="/kubeflow-manifests/main/docs/deployment/connect-kubeflow-dashboard/" class="align-left pl-0  active td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsmaindocsdeploymentconnect-kubeflow-dashboard"><span class="td-sidebar-nav-active-item">Connect to your Kubeflow Dashboard</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-kubeflow-manifestsmaindocsdeploymentcreate-profiles-with-iam-role-li">
+  <input type="checkbox" id="m-kubeflow-manifestsmaindocsdeploymentcreate-profiles-with-iam-role-check"/>
+  <label for="m-kubeflow-manifestsmaindocsdeploymentcreate-profiles-with-iam-role-check"><a href="/kubeflow-manifests/main/docs/deployment/create-profiles-with-iam-role/" class="align-left pl-0  td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsmaindocsdeploymentcreate-profiles-with-iam-role"><span class="">Create Profiles with IAM role</span></a></label>
   
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-kubeflow-manifestsmaindocsdeploymentconfigure-notebook-culling-li">
   <input type="checkbox" id="m-kubeflow-manifestsmaindocsdeploymentconfigure-notebook-culling-check"/>
@@ -492,6 +498,9 @@
 		
 	</header>    
 	<h2 id="port-forward-manifest-deployment">Port-forward (Manifest deployment)</h2>
+<blockquote>
+<p>Note: Make sure you are in the the root of the repository before running the following commands. Running pwd command should output <code>&lt;path/to/kubeflow-manifests&gt;</code> directory.</p>
+</blockquote>
 <h3 id="option-1-amazon-ec2">Option 1: Amazon EC2</h3>
 <p>Run the following command on your EC2 instance:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">make port-forward
@@ -507,6 +516,9 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">make port-forward
 </span></span></code></pre></div><p>Then, open the AWS Cloud9 browser and go to <a href="http://localhost:8080/">http://localhost:8080/</a>.</p>
 <h2 id="port-forward-terraform-deployment">Port-forward (Terraform deployment)</h2>
+<blockquote>
+<p>Note: Make sure you are in the the root of the repository before running the following commands. Running pwd command should output <code>&lt;path/to/kubeflow-manifests&gt;</code> directory.</p>
+</blockquote>
 <ol>
 <li>
 <p>Update the <code>kubeconfig</code>:</p>
@@ -550,7 +562,7 @@
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified April 19, 2023: <a href="https://github.com/awslabs/kubeflow-manifests//commit/e8bf3f4812b5e366905cb0bad278316c9e05bceb">Pipeline S3 config update (#689) (e8bf3f4)</a>
+  Last modified May 3, 2023: <a href="https://github.com/awslabs/kubeflow-manifests//commit/fb5d82f6f3835728cf7d01369b6098a7b9492836">Fix profiles with iam docs  (#722) (fb5d82f)</a>
 </div>
 
 </div>
